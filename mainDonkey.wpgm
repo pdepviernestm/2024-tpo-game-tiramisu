@@ -1,0 +1,34 @@
+import base.*
+import mario.*
+import wollok.game.*
+
+
+program DonkeyKongGame {
+	game.title("Donkey Kong")
+	game.height(15)
+	game.width(15)
+	game.cellSize(40)
+	game.boardGround("blackBackground.jpg")
+
+	game.showAttributes(mario)
+	game.addVisual(mario)
+
+
+	const teclasDer = [keyboard.right(),keyboard.d()]
+	teclasDer.forEach { n =>  n.onPressDo({ mario.derecha() })}
+
+	const teclasIzq = [keyboard.left(),keyboard.a()]
+	teclasIzq.forEach { n =>  n.onPressDo({ mario.izquierda() })}
+
+	const teclasSaltar = [keyboard.up(),keyboard.space(),keyboard.w()]
+	teclasSaltar.forEach { n =>  n.onPressDo({ mario.saltar() })}
+
+	
+	//const primerPiso = new Base(x=-4, y=1)
+	//game.addVisual(primerPiso)
+
+	//game.onTick(1000, "Se cae", { if(not(mario.enBase())) mario.caer() })
+	//game.onCollideDo(mario, { elemento => elemento.actuar() })
+
+	game.start()
+}
