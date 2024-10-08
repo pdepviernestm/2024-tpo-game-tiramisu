@@ -1,5 +1,6 @@
 import base.*
 import mario.*
+import escalera.*
 import wollok.game.*
 
 
@@ -8,10 +9,20 @@ program DonkeyKongGame {
 	game.height(15)
 	game.width(15)
 	game.cellSize(40)
-	game.boardGround("blackBackground.jpg")
+	game.boardGround("fondoNegro.jpg")
+
+	const primerPiso = new Base(ejeXBase=-1, ejeYBase=1, ancho=12)
+	primerPiso.crearPiso()
+
+	const segundoPiso = new Base(ejeXBase=3, ejeYBase=4, ancho= 12)
+	segundoPiso.crearPiso()
+
+	const primerEscalera = new Escalera(ejeXBase = 10 , ejeYBase = 1, alto = 3)
+	primerEscalera.crearEscalera()
 
 	game.showAttributes(mario)
 	game.addVisual(mario)
+
 
 
 	const teclasDer = [keyboard.right(),keyboard.d()]
@@ -20,14 +31,14 @@ program DonkeyKongGame {
 	const teclasIzq = [keyboard.left(),keyboard.a()]
 	teclasIzq.forEach { n =>  n.onPressDo({ mario.izquierda() })}
 
-	const teclasSaltar = [keyboard.up(),keyboard.space(),keyboard.w()]
+	const teclasSaltar = [keyboard.space()]
 	teclasSaltar.forEach { n =>  n.onPressDo({ mario.saltar() })}
-
 	
-	//const primerPiso = new Base(x=-4, y=1)
-	//game.addVisual(primerPiso)
+	const teclasEscalar = [keyboard.up(),keyboard.w()]
+	teclasSaltar.forEach { n =>  n.onPressDo({ mario.escalar() })}
 
-	//game.onTick(1000, "Se cae", { if(not(mario.enBase())) mario.caer() })
+
+	game.onTick(1000, "Se cae", { if(not(mario.enBase())) mario.caer() })
 	//game.onCollideDo(mario, { elemento => elemento.actuar() })
 
 	game.start()
