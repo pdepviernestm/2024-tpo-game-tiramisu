@@ -6,7 +6,7 @@ object mario {
   var property escalando = false
   var property andar = false
   var property mirarDer = true
-  var imagen = "marioD3.png"
+  var imagen = "marioD.png"
 
   method image() = imagen
   
@@ -17,11 +17,11 @@ object mario {
   method derecha() {
     if (self.dentroDePantalla(self.position().right(1))){
       if (andar){
-      imagen = "marioD3.png"
+      imagen = "marioD.png"
       andar = false
       }
     else {
-      imagen = "marioDD3.png"
+      imagen = "marioDD.png"
       andar = true
       }
     mirarDer = true
@@ -31,11 +31,11 @@ object mario {
   method izquierda() {
     if (self.dentroDePantalla(self.position().left(1))){
     if (andar){
-      imagen = "marioI3.png"
+      imagen = "marioI.png"
       andar = false
       }
     else {
-      imagen = "marioII3.png"
+      imagen = "marioII.png"
       andar = true
       }
     mirarDer = false
@@ -52,13 +52,13 @@ object mario {
       andar = false
 
       if(mirarDer) {
-        imagen= "marioUpD3.png"
-        imagenOld = "marioD3.png"
+        imagen= "marioUpD.png"
+        imagenOld = "marioD.png"
         } 
     
       else{ 
-        imagen= "marioUpI3.png"
-        imagenOld = "marioI3.png"
+        imagen= "marioUpI.png"
+        imagenOld = "marioI.png"
         }
     
     self.position(self.position().up(1))
@@ -73,8 +73,8 @@ object mario {
       if (not(escalando)){
         self.escalando(true)
         self.position(self.position().up(1))
-        if(mirarDer) imagen = "marioEscala1Der.png"
-        else imagen = "marioEscala1Izq.png"
+        if(mirarDer) imagen = "marioEscala1D.png"
+        else imagen = "marioEscala1I.png"
         }
     }
   }
@@ -91,8 +91,8 @@ object mario {
   }
   
   method endGame() {
-      if (mirarDer) imagen = "marioDeadD3.png"
-      else imagen = "marioDeadI3.png"
+      if (mirarDer) imagen = "marioDeadD.png"
+      else imagen = "marioDeadI.png"
       game.sound("marioDead.wav").play()
       game.schedule(1000, { game.stop() })
   }
