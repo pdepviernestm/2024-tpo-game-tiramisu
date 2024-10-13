@@ -2,6 +2,9 @@ import base.*
 import mario.*
 import escalera.*
 import wollok.game.*
+import corazones.*
+import sonidos.*
+
 
 
 program DonkeyKongGame {
@@ -10,19 +13,24 @@ program DonkeyKongGame {
 	game.width(15)
 	game.cellSize(40)
 	game.boardGround("fondoNegro.jpg")
+	const song = game.sound(sonidos.musicaNivel1())
+  	song.shouldLoop(true)
+  	song.play()
 
-	const primerPiso = new Base(ejeXBase=-1, ejeYBase=1, ancho=12)
+	const primerPiso = new Base(ejeXBase=-1, ejeYBase=1, ancho=13)
 	primerPiso.crearPiso()
 
 	const segundoPiso = new Base(ejeXBase=3, ejeYBase=4, ancho= 12)
 	segundoPiso.crearPiso()
 
-	const primerEscalera = new Escalera(ejeXBase = 10 , ejeYBase = 1, alto = 3)
+	const primerEscalera = new Escalera(ejeXBase = 10 , ejeYBase = 0, alto = 3)
 	primerEscalera.crearEscalera()
 
 	game.showAttributes(mario)
 	game.addVisual(mario)
 
+
+	corazon.agregarCorazon()
 
 
 	const teclasDer = [keyboard.right(),keyboard.d()]
@@ -38,7 +46,7 @@ program DonkeyKongGame {
 	teclasSaltar.forEach { n =>  n.onPressDo({ mario.escalar() })}
 
 
-	game.onTick(1000, "Se cae", { if(not(mario.enBase())) mario.caer() })
+	game.onTick(750, "Se cae", { if(not(mario.enBase())) mario.caer() })
 	//game.onCollideDo(mario, { elemento => elemento.actuar() })
 
 	game.start()

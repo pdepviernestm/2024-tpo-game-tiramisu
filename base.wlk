@@ -5,15 +5,25 @@ class Base {
     method crearPiso() {
         (1..ancho).forEach { i =>
             const pixel = new Pixel(ejeXPixel = ejeXBase + i, ejeYPixel = ejeYBase)
-            game.addVisual(pixel)
-        }
+            const pixelInvisible = new PixelInvisible(ejeXP = ejeXBase + i, ejeYP = ejeYBase)
+            game.addVisual(pixelInvisible)
+            game.addVisual(pixel)}
     }
+}
+
+class PixelInvisible {
+    const ejeXP 
+    const ejeYP
+    const property soyBase = true
+    const property soyEscalera = false
+    method position() = game.at(ejeXP , ejeYP + 1)
 }
 
 class Pixel {
     const ejeXPixel
     const ejeYPixel
-    const property soyBase = true
+    const property soyBase = false
+    const property soyEscalera = false
     method position() = game.at(ejeXPixel, ejeYPixel)
     method image() = "pixelBase.png"
 }

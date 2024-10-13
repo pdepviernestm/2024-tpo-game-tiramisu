@@ -16,5 +16,5 @@ class Pixel {
     const property soyBase = false
     const property soyEscalera = true
     method position() = game.at(ejeXPixel, ejeYPixel)
-    method image() = "escaleraPixel30x40.png"
+    method image() = "escaleraPixel.png"
 }
