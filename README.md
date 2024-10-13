@@ -1,4 +1,4 @@
-# Nombre del juego (<- borrar y completar)
+# Donkey Kong Arcade
 
 ## Equipo de desarrollo
 
