@@ -30,7 +30,7 @@ object mario {
       }
     else {
       imagen = "marioDD.png"
-      game.schedule(2000,  {imagen = "marioD.png" andar = false}) 
+      game.schedule(1000,  {imagen = "marioD.png" andar = false}) 
       andar = true
       }
     mirarDer = true
@@ -47,7 +47,7 @@ object mario {
       }
     else {
       imagen = "marioII.png"
-      game.schedule(2000,  {imagen = "marioI.png" andar = false}) 
+      game.schedule(1000,  {imagen = "marioI.png" andar = false}) 
       andar = true
       }
     mirarDer = false

@@ -1,9 +1,0 @@
-import wollok.game.*
-
-program soundProgram {
-
-  const song = game.sound("level1song.wav")
-  song.shouldLoop(true)
-  game.schedule(500, { song.play()} )
-  game.start()
-}
