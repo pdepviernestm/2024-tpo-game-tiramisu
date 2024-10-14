@@ -15,9 +15,10 @@ describe "Test de Mario" {
     mario.saltar()
     game.schedule(2500, {assert.equals(mario.saltando(), 0)})
 
-  }*/
+
 
   test "Inmediatamente al saltar, no podrá saltar denuevo"{
   
   }
+    }*/
 }
