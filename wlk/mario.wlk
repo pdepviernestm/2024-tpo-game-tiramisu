@@ -2,8 +2,6 @@ import base.*
 import sonidos.*
 import corazones.*
 
-
-
 object mario {
   var property position = game.at(0,2)
   var property saltando = false
@@ -30,7 +28,7 @@ object mario {
       }
     else {
       imagen = "marioDD.png"
-      game.schedule(1000,  {imagen = "marioD.png" andar = false}) 
+      game.schedule(250,  {imagen = "marioD.png" andar = false}) 
       andar = true
       }
     mirarDer = true
@@ -47,7 +45,7 @@ object mario {
       }
     else {
       imagen = "marioII.png"
-      game.schedule(1000,  {imagen = "marioI.png" andar = false}) 
+      game.schedule(250,  {imagen = "marioI.png" andar = false}) 
       andar = true
       }
     mirarDer = false
@@ -77,9 +75,10 @@ object mario {
     game.sound(sonidos.marioSalta()).play()
     self.position(self.position().up(1))
     game.schedule(500, { 
-      self.position(self.position().down(1)) 
+      if(not(self.enBase()))self.position(self.position().down(1)) 
       game.schedule(20,  {imagen = imagenOld}) 
-    self.saltando(false) })
+    self.saltando(false)
+    })
     }
   }
   method escalar() {
@@ -100,10 +99,10 @@ object mario {
   method enBase() = game.colliders(self).any({ elem => elem.soyBase()})
 
   method caer() {
-    if (self.dentroDePantalla(self.position().down(1)) and self.puedeCaer()){
+    if (self.dentroDePantalla(self.position().down(1)) and self.puedeCaer() and not(self.saltando())){
       self.position(self.position().down(1))
     }
-    else self.quitarVida()
+    else if(not(self.saltando())) self.quitarVida()
     //else if(vida == 1) self.morirPorCaida()
   }
   method quitarVida() {
@@ -146,6 +145,7 @@ object mario {
       if (mirarDer) imagen = "marioDeadD.png"
       else imagen = "marioDeadI.png"
       game.sound(sonidos.marioMuere()).play()
+      sonidos.pararMusica()
       game.schedule(1000, { game.stop() })
   }
 }

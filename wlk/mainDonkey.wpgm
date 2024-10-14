@@ -13,15 +13,16 @@ program DonkeyKongGame {
 	game.width(15)
 	game.cellSize(40)
 	game.boardGround("fondoNegro.jpg")
-	const song = game.sound(sonidos.musicaNivel1())
-  	song.shouldLoop(true)
-  	song.play()
+	sonidos.iniciarMusica()
 
 	const primerPiso = new Base(ejeXBase=-1, ejeYBase=1, ancho=13)
 	primerPiso.crearPiso()
 
 	const segundoPiso = new Base(ejeXBase=3, ejeYBase=4, ancho= 12)
 	segundoPiso.crearPiso()
+
+	const tercerPiso = new Base(ejeXBase=-1, ejeYBase=7, ancho=10)
+	tercerPiso.crearPiso()
 
 	const primerEscalera = new Escalera(ejeXBase = 10 , ejeYBase = 0, alto = 3)
 	primerEscalera.crearEscalera()
