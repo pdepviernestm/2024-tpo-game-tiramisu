@@ -1,0 +1,24 @@
+import mario.*
+
+describe "Test de Mario" {
+
+  test "Cuando Mario NO salta, la variable saltando está en 0" {
+    assert.equals(mario.saltando(), 0)
+  }
+
+  test "Cuando Mario salta, la variable saltando está en 1" {
+    mario.saltar()
+    assert.equals(mario.saltando(), 1)
+  }
+  /*
+  test "Después que Mario salta, la variable saltando está en 0" {
+    mario.saltar()
+    game.schedule(2500, {assert.equals(mario.saltando(), 0)})
+
+
+
+  test "Inmediatamente al saltar, no podrá saltar denuevo"{
+  
+  }
+    }*/
+}
