@@ -32,4 +32,6 @@ class Corazon {
     method quitarCorazon() {
         imagen = "marioVidaDead.png"
     }
+    method actuar() {  
+    }
 }

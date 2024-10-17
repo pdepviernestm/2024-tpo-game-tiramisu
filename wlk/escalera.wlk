@@ -1,15 +1,29 @@
+import mario.*
+
 class Escalera {
     const ejeXBase
     const ejeYBase
     const alto
     method crearEscalera() {
-        (1..alto).forEach { i =>
+        (0..alto).forEach { i =>
             const pixel = new Pixel(ejeXPixel = ejeXBase , ejeYPixel = ejeYBase + i)
+            
             game.addVisual(pixel)
         }
+        const pixelInvisible = new PixelInvisible(ejeXP = ejeXBase, ejeYP = ejeYBase+alto)
+        game.addVisual(pixelInvisible)
     }
 }
-
+class PixelInvisible {
+    const ejeXP 
+    const ejeYP
+    const property soyBase = false
+    const property soyEscalera = true
+    method position() = game.at(ejeXP , ejeYP + 1)
+    method actuar() { 
+        
+    }
+}
 class Pixel {
     const ejeXPixel
     const ejeYPixel
@@ -17,4 +31,6 @@ class Pixel {
     const property soyEscalera = true
     method position() = game.at(ejeXPixel, ejeYPixel)
     method image() = "escaleraPixel.png"
+    method actuar() {}
+    
 }

@@ -7,7 +7,8 @@ class Base {
             const pixel = new Pixel(ejeXPixel = ejeXBase + i, ejeYPixel = ejeYBase)
             const pixelInvisible = new PixelInvisible(ejeXP = ejeXBase + i, ejeYP = ejeYBase)
             game.addVisual(pixelInvisible)
-            game.addVisual(pixel)}
+            game.addVisual(pixel)
+            }
     }
 }
 
@@ -17,6 +18,8 @@ class PixelInvisible {
     const property soyBase = true
     const property soyEscalera = false
     method position() = game.at(ejeXP , ejeYP + 1)
+    method actuar() { 
+    }
 }
 
 class Pixel {
@@ -26,4 +29,8 @@ class Pixel {
     const property soyEscalera = false
     method position() = game.at(ejeXPixel, ejeYPixel)
     method image() = "pixelBase.png"
+
+    method actuar() {  
+    }
 }
+

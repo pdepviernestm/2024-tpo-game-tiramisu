@@ -3,6 +3,7 @@ import sonidos.*
 import corazones.*
 
 object mario {
+  const property marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
   var property position = game.at(0,2)
   var property saltando = false
   var property escalando = false
@@ -11,6 +12,7 @@ object mario {
   var property vida = 5
   var property puedeMoverse = true
   var property puedeCaer = true
+  var cayendo = 0
   var imagen = "marioD.png"
 
 
@@ -28,12 +30,12 @@ object mario {
       }
     else {
       imagen = "marioDD.png"
-      game.schedule(250,  {imagen = "marioD.png" andar = false}) 
+      game.schedule(500,  {imagen = "marioD.png" andar = false}) 
       andar = true
       }
     mirarDer = true
     self.position(self.position().right(1))
-    game.sound(sonidos.marioCamina().anyOne()).play() 
+    sonidos.caminar()
     }
   }
 
@@ -45,20 +47,21 @@ object mario {
       }
     else {
       imagen = "marioII.png"
-      game.schedule(250,  {imagen = "marioI.png" andar = false}) 
+      game.schedule(500,  {imagen = "marioI.png" andar = false}) 
       andar = true
       }
     mirarDer = false
     self.position(self.position().left(1)) 
-    game.sound(sonidos.marioCamina().anyOne()).play() 
+    sonidos.caminar()
     }
   }
 
   method dentroDePantalla(pos) = ((pos.x() > -1) and (pos.x() < game.width()) 
-            and (pos.y() > -1) and (pos.y() < game.height()))
+    and (pos.y() > -1) and (pos.y() < game.height()))
 
   method saltar() {
     if (not(saltando)) {
+      sonidos.saltar()
       var imagenOld
       self.saltando(true) 
       andar = false
@@ -72,7 +75,6 @@ object mario {
         imagen= "marioUpI.png"
         imagenOld = "marioI.png"
         }
-    game.sound(sonidos.marioSalta()).play()
     self.position(self.position().up(1))
     game.schedule(500, { 
       if(not(self.enBase()))self.position(self.position().down(1)) 
@@ -82,11 +84,8 @@ object mario {
     }
   }
   method escalar() {
-    if(self.enEscalera()){
+    if(self.enEscalera() ){
       if (not(escalando)){
-        self.escalando(true)
-        self.puedeCaer(false)
-        self.puedeMoverse(false)
         self.position(self.position().up(1))
         if(mirarDer) imagen = "marioEscala1D.png"
         else imagen = "marioEscala1I.png"
@@ -94,20 +93,35 @@ object mario {
     }
   }
 
+  method escalarAbajo() {
+    if(self.enEscalera() and not(self.enBase())){
+      if (not(escalando)){
+        self.position(self.position().down(1))
+        if(mirarDer) imagen = "marioEscala1D.png"
+        else imagen = "marioEscala1I.png"
+        }
+    }
+  }
 
   method enEscalera() = game.colliders(self).any({elem => elem.soyEscalera()})
   method enBase() = game.colliders(self).any({ elem => elem.soyBase()})
+  method enFuego() = game.colliders(self).any({ elem => elem.soyFuego()})
 
   method caer() {
     if (self.dentroDePantalla(self.position().down(1)) and self.puedeCaer() and not(self.saltando())){
       self.position(self.position().down(1))
+      game.sound(sonidos.marioCae()).play()
+      cayendo =+ 1
     }
-    else if(not(self.saltando())) self.quitarVida()
-    //else if(vida == 1) self.morirPorCaida()
+    else if(not(self.saltando())) self.quitarVida(1)
+    else {
+      if(cayendo > 1) self.quitarVida(cayendo/2)
+      cayendo = 0
+    }
   }
-  method quitarVida() {
-    if(vida > 1 and self.puedeMoverse()) {
-      vida -= 1
+  method quitarVida(vidaAQuitar) {
+    if(vida >= vidaAQuitar) {
+      vida -= vidaAQuitar
       game.sound(sonidos.marioPierdeVida()).play()
       corazon.quitarCorazon()
       self.reaparecer()
@@ -116,30 +130,18 @@ object mario {
   }
   
   method reaparecer() {
-    self.position(game.at(0,2))
+    self.position(game.at(1,2))
     imagen = "marioD.png"
   }
-/*
-  method morirPorCaida() {
-    const marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
-    if(self.puedeMoverse()){
-      self.puedeMoverse(false)
-      self.puedeCaer(false)
-    game.sound(sonidos.marioMuere()).play()
-    game.schedule(500, { 
-        5.times (
-          game.schedule(500 ,  self.girar(marioGirando)))
-        self.puedeCaer(false)
-        game.schedule(2500, { game.stop() }) 
-        })
-    }
+  method tocarFuego() {
+    if(vida >= 2){
+    vida -= 2
+    corazon.quitarCorazon()
+    corazon.quitarCorazon()
+    self.reaparecer()
+    game.sound(sonidos.marioMuerePorFuego()).play()}
+    else self.endGame()
   }
-  method girar(lista) {
-      imagen = lista.head() 
-      self.position(self.position().up(1))
-      lista.remove(lista.head())
-  }
-*/
 
   method endGame() {
       if (mirarDer) imagen = "marioDeadD.png"
@@ -150,5 +152,3 @@ object mario {
   }
 }
 
-//Arreglar que mario salta de a 3 bloques
-//agregar sonidos
