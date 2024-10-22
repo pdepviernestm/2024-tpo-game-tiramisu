@@ -43,11 +43,6 @@ class Barril {
         }
     }
 
-    method hayBase() {
-        const bloqueDeAbajo = abajo.desplazar(position)
-        return game.getObjectsIn(bloqueDeAbajo).any({ n => (n.soyBase() /*|| n.soyEscalera()*/) })
-    }
-
     method detener() { game.removeVisual(self) }
 
     method iniciar(){
