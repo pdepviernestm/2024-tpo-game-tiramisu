@@ -6,7 +6,7 @@ class Base {
     //const property soyEscalera = false
  
     method crearPiso() {
-        (1..ancho).forEach({ i =>
+        (0..ancho).forEach({ i =>
             const pixel = new Pixel(ejeXPixel = ejeXBase + i, ejeYPixel = ejeYBase)
             game.addVisual(pixel)
             })

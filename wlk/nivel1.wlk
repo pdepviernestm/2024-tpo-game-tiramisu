@@ -25,11 +25,11 @@ object nivel1 {
 		sonidos.iniciarMusica(sonidos.musicaNivel1())
 
 		//CARGAR: Bases//
-		bases.add(new Base(ejeXBase = -1, ejeYBase = 1, ancho = 13))
-		bases.add(new Base(ejeXBase = 2, ejeYBase = 4, ancho = 15))
-		bases.add(new Base(ejeXBase = -1, ejeYBase = 7, ancho = 14))
-		bases.add(new Base(ejeXBase = 0, ejeYBase = 10, ancho = 18))
-		bases.add(new Base(ejeXBase = 3, ejeYBase = 12, ancho = 5))
+		bases.add(new Base(ejeXBase = 0, ejeYBase = 1, ancho = 13))
+		bases.add(new Base(ejeXBase = 1, ejeYBase = 4, ancho = 15))
+		bases.add(new Base(ejeXBase = 0, ejeYBase = 7, ancho = 14))
+		bases.add(new Base(ejeXBase = 2, ejeYBase = 10, ancho = 18))
+		bases.add(new Base(ejeXBase = 1, ejeYBase = 12, ancho = 5))
 		bases.forEach({ n => n.crearPiso() })
 
 		//CARGAR: Escaleras//
@@ -74,6 +74,7 @@ object nivel1 {
 
 		//game.onTick(1000, "Barrilazo", {})
 		
+		peach.moverseAutomaticamente()
 		//Me parece que es redundante//
 		//game.onTick(6000.randomUpTo(12000), "Lanzar barril", { donkey.lanzarBarril() }) //envia un valor a lanzar barril y lo divide por tres
 		donkey.lanzarBarril()

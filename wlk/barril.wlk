@@ -11,7 +11,7 @@ object barriles {
 class Barril {
     var property position = game.at(11, 11)
     var property direccionActual = izquierda
-    var image = "barril1.png"
+    var image = "barrril1.png"
     var cayo = false
 
     method cayo(unBool) { cayo = unBool }
