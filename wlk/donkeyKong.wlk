@@ -13,10 +13,8 @@ object donkey {
   method actuar() {}
   
   method lanzarBarril() {
-    game.onTick(1000, "Donkey Kong lanza Barriles", {
     if(indice < 2) indice += 1 else indice = 0
     image = serieBarril.get(indice)
     if(indice == 2) { const barril = new Barril() game.addVisual(barril) barril.iniciar() }
-    })
   }
 }

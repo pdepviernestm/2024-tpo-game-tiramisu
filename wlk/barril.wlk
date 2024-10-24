@@ -11,14 +11,22 @@ object barriles {
 class Barril {
     var property position = game.at(11, 11)
     var property direccionActual = izquierda
-    var image = "barrril1.png"
+    var image = imagenes.get(index)
     var cayo = false
+    var index = 0
+    const property imagenes = ["barril1.png", "barril2.png", "barril3.png", "barril4.png"]
 
     method cayo(unBool) { cayo = unBool }
 
     method image() = image
 
-    method mover() { //NO MODIFICA LA IMAGEN//
+    method cambiarImagen() {
+        if(index < 3) index += 1 
+        else index = 0
+        image = imagenes.get(index)
+    }
+
+    method mover() {
         const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
         if(position.y() < -1)
             self.detener()
@@ -34,6 +42,8 @@ class Barril {
             {
                 if(cayo) { self.cayo(false) direccionActual = direccionActual.invertir() position = direccionActual.desplazar(position) }
                 else position = direccionActual.desplazar(position)
+                self.cambiarImagen()
+
             }
             else
             {

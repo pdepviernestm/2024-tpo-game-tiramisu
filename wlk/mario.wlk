@@ -12,7 +12,7 @@ object mario {
   var property vida = 5
   var property puedeMoverse = true
   var property puedeCaer = true
-  var cayendo = 0
+  const property soyBase = false
   var imagen = "marioD.png"
 
 
@@ -35,7 +35,7 @@ object mario {
       }
     mirarDer = true
     self.position(self.position().right(1))
-    sonidos.caminar()
+    sonidos.iniciarListaSonido(sonidos.marioCamina())
     }
   }
 
@@ -52,7 +52,7 @@ object mario {
       }
     mirarDer = false
     self.position(self.position().left(1)) 
-    sonidos.caminar()
+    sonidos.iniciarListaSonido(sonidos.marioCamina())
     }
   }
 
@@ -61,7 +61,7 @@ object mario {
 
   method saltar() {
     if (not(saltando)) {
-      sonidos.saltar()
+      sonidos.iniciarListaSonido(sonidos.marioSalta())
       var imagenOld
       self.saltando(true) 
       andar = false
@@ -87,9 +87,14 @@ object mario {
     if(self.enEscalera() ){
       if (not(escalando)){
         self.position(self.position().up(1))
-        if(mirarDer) imagen = "marioEscala1D.png"
-        else imagen = "marioEscala1I.png"
+        if(mirarDer){ imagen = "marioEscala1D.png" 
+        mirarDer=false
         }
+      else {
+        imagen = "marioEscala1I.png" 
+        mirarDer=true
+        }
+      }
     }
   }
 
@@ -119,20 +124,14 @@ object mario {
     if (self.dentroDePantalla(self.position().down(1)) and self.puedeCaer() and not(self.saltando())) {
       self.position(self.position().down(1))
       game.sound(sonidos.marioCae()).play()
-      cayendo =+ 1
-    }
-    else if(not(self.saltando())) self.quitarVida()
-    else {
-      if(cayendo > 1) self.quitarVida() //antes tenia: cayendo/2
-      cayendo = 0
     }
   }
 
   method quitarVida() { //antes tenia: vidaAQuitar
-    if(vida >= 1) {
+    if(vida > 1) {
       vida -= 1
       game.sound(sonidos.marioPierdeVida()).play()
-      corazon.quitarCorazon()
+      corazones.quitarCorazon()
       self.reaparecer()
       }
     else self.endGame()
@@ -146,8 +145,8 @@ object mario {
   method tocarFuego() {
     if(vida >= 2){
     vida -= 2
-    corazon.quitarCorazon()
-    corazon.quitarCorazon()
+    corazones.quitarCorazon()
+    corazones.quitarCorazon()
     self.reaparecer()
     game.sound(sonidos.marioMuerePorFuego()).play()}
     else self.endGame()

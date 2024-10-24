@@ -1,11 +1,7 @@
-import mario.*
-
-
 class Escalera {
     const ejeXBase
     const ejeYBase
     const alto
-    const property soyBase = false
     //const property puedeBajarse
 
     method crearEscalera() {

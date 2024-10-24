@@ -2,8 +2,6 @@ class Base {
     const ejeXBase
     const ejeYBase
     const ancho
-    const property soyBase = true
-    //const property soyEscalera = false
  
     method crearPiso() {
         (0..ancho).forEach({ i =>

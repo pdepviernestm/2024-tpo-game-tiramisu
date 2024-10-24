@@ -22,6 +22,7 @@ object nivel1 {
 	const teclasEscalarAbajo = [keyboard.down(), keyboard.s()]
 
     method cargarNivel() {
+		sonidos.iniciarSonido(sonidos.iniciarNivel())
 		sonidos.iniciarMusica(sonidos.musicaNivel1())
 
 		//CARGAR: Bases//
@@ -46,7 +47,7 @@ object nivel1 {
 	    //fuegoPiso.crearFuego()
 
 		//CARGAR: Vida//
-	    corazon.agregarCorazon()
+	    corazones.agregarCorazon()
 
 		//Cargar: Objetos//
 	    game.showAttributes(mario)
@@ -65,19 +66,18 @@ object nivel1 {
 	    teclasEscalarAbajo.forEach { n => n.onPressDo({ mario.escalarAbajo() })}
 
 
-//EVENTOS QUE SE REPITEN CADA CIERTO TIEMPO
+//EVENTOS REPETITIVOS
 	    game.onTick(300, "Se cae", { if(!mario.enBase()) mario.caer() })
 
 	    //game.onTick(500, "Fuego", { fuegoPiso.cambiarFotos() })
 
-	    game.onTick(10000, "Comentarios", { sonidos.hablar() })
+	    game.onTick(10000, "Comentarios", { sonidos.iniciarListaSonido(sonidos.marioHabla()) })
+
+		game.onTick(1000, "Donkey Kong lanza Barriles", {donkey.lanzarBarril()})
+		
+		game.onTick(500, "Peach se mueve", {peach.moverse()})
 
 		//game.onTick(1000, "Barrilazo", {})
-		
-		peach.moverseAutomaticamente()
-		//Me parece que es redundante//
-		//game.onTick(6000.randomUpTo(12000), "Lanzar barril", { donkey.lanzarBarril() }) //envia un valor a lanzar barril y lo divide por tres
-		donkey.lanzarBarril()
 
 //COLISIONES (TODOS LOS OBJETOS COLISIONABLES DEBEN TENER EL METHOD ACTUAR)
 	    game.onCollideDo(mario, { elemento => elemento.actuar() })

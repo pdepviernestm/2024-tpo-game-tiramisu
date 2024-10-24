@@ -1,10 +1,8 @@
-const corazon = new Corazones(x = 9, y = 14, cant = 5)
-
-class Corazones { //SERIA LA BARRA, DEBE SER UNA CLASE?
-    const x
-    const y
-    const cant
-    var corazones = [] //CONST ??
+object corazones { 
+    const x = 9
+    const y = 14
+    const cant = 5
+    const corazones = []
     
     method agregarCorazon() {
         (1..cant).forEach({ i =>
@@ -14,9 +12,9 @@ class Corazones { //SERIA LA BARRA, DEBE SER UNA CLASE?
         })
     }
     
-    method quitarCorazon() { //COMO FUNCIONA??
+    method quitarCorazon() { 
         const corazon = corazones.last()
-        corazon.quitarCorazon() //POR QUÉ??
+        corazon.quitarCorazon()
         corazones.remove(corazon)
     }
 }
@@ -25,11 +23,11 @@ class Corazon {
     const ejeXPixel
     const ejeYPixel
     var imagen = "marioVida.png"
-    
+
     method position() = game.at(ejeXPixel, ejeYPixel)
 
     method image() = imagen
-    
+
     method quitarCorazon() {
         imagen = "marioVidaDead.png"
     }
