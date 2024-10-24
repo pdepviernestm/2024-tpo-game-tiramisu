@@ -15,8 +15,6 @@ object sonidos {
   const property marioSalta = ["mario_jump1.wav", "mario_jump2.wav", "mario_jump3.wav", "mario_jump4.wav"]
 
   var musicaActual = null
-  
-
 
   method iniciarMusica(song) {
     if(musicaActual == null) { //Se podria hacer diferente
@@ -36,30 +34,10 @@ object sonidos {
     const sound = game.sound(sonido)
     sound.play()
   }
-  /*
-  method moverElCursor() {
-    game.sound(self.moverCursor()).play()
-  }
 
-  method hacerClick() {
-    game.sound(self.click()).play()
-  }
-*/
   method iniciarListaSonido(lista) {
     const sound = game.sound(lista.anyOne())
     sound.play()
   }
-/*
-  method caminar() {
-    game.sound(self.marioCamina().anyOne()).play()
-  }
 
-  method hablar() {
-    game.sound(self.marioHabla().anyOne()).play() 
-  }
-
-  method saltar(){
-    game.sound(self.marioSalta().anyOne()).play() 
-  }
-  */
 }

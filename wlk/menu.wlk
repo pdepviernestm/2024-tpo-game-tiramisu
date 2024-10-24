@@ -60,8 +60,6 @@ class Boton {
   var property position = game.at(ejeX, ejeY)
 }
 
-
-//CAMBIÉ LAS CLASES POR OBJETOS//
 object botonJugar inherits Boton(imagen = "botonJugar.png", ejeX = 1.5, ejeY = 5) {
   method actuar() {
     sonidos.pararMusica()

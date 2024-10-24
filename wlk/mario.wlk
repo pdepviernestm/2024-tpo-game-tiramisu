@@ -127,7 +127,7 @@ object mario {
     }
   }
 
-  method quitarVida() { //antes tenia: vidaAQuitar
+  method quitarVida() {
     if(vida > 1) {
       vida -= 1
       game.sound(sonidos.marioPierdeVida()).play()
