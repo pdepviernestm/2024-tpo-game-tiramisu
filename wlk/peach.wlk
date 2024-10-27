@@ -19,9 +19,10 @@ object peach {
         }}
     
     method actuar() {
+        if(mario.items().size() == 3)
         conMario = true
         sonidos.iniciarSonido(sonidos.ganar())
-        //menuGanar.cargar()
+        game.schedule(1000, {mario.winGame()})
     }
 }
 
