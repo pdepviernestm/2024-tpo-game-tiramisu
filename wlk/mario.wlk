@@ -14,7 +14,7 @@ object mario {
   var property puedeCaer = true
   const property soyBase = false
   var imagen = "marioD.png"
-
+  const property items = []
 
   method image() = imagen
   
@@ -61,8 +61,8 @@ object mario {
 
   method saltar() {
     if (not(saltando)) {
-      sonidos.iniciarListaSonido(sonidos.marioSalta())
       var imagenOld
+      sonidos.iniciarListaSonido(sonidos.marioSalta())
       self.saltando(true) 
       andar = false
 
@@ -158,6 +158,10 @@ object mario {
       game.sound(sonidos.marioMuere()).play()
       sonidos.pararMusica()
       game.schedule(1000, { game.stop() })
+  }
+  
+  method winGame() {
+    game.stop()
   }
 }
 

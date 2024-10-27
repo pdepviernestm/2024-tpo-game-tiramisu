@@ -26,29 +26,24 @@ class Barril {
         image = imagenes.get(index)
     }
 
-    method mover() {
+    method mover() { //NO MODIFICA LA IMAGEN//
         const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
         if(position.y() < -1)
             self.detener()
-        if(objetosDeAbajo.isEmpty())
-        {
-            position = abajo.desplazar(position)
-            self.cayo(true)
-        }
-        else
-        {
-            const select = objetosDeAbajo.anyOne()
-            if(select.soyBase())
-            {
-                if(cayo) { self.cayo(false) direccionActual = direccionActual.invertir() position = direccionActual.desplazar(position) }
-                else position = direccionActual.desplazar(position)
-                self.cambiarImagen()
-
-            }
-            else
-            {
-                position = abajo.desplazar(position)
-                self.cayo(true)
+        if(objetosDeAbajo.isEmpty()) { position = abajo.desplazar(position) self.cayo(true) }
+        else{
+            if(objetosDeAbajo.contains(mario)) { position = abajo.desplazar(position) self.cayo(true) }
+            else{
+                const select = objetosDeAbajo.anyOne()
+                if(select.soyBase()){
+                    if(cayo) { self.cayo(false) direccionActual = direccionActual.invertir() position = direccionActual.desplazar(position) }
+                    else position = direccionActual.desplazar(position)
+                    self.cambiarImagen()
+                }
+                else{
+                    position = abajo.desplazar(position)
+                    self.cayo(true)
+                }
             }
         }
     }
@@ -59,7 +54,10 @@ class Barril {
         game.onTick(60, "Avanzar", { self.mover() })
     }
 
-    method actuar() { mario.quitarVida() }
+    method actuar() { 
+        mario.quitarVida() 
+        game.removeVisual(self)
+    }
 }
 
 object barrilEnLlamas {

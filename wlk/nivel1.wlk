@@ -1,7 +1,7 @@
+import wollok.game.*
 import base.*
 import mario.*
 import escalera.*
-import wollok.game.*
 import corazones.*
 import sonidos.*
 import fuego.*
@@ -55,6 +55,9 @@ object nivel1 {
 		game.addVisual(donkey)
 		game.addVisual(peach)
 		game.addVisual(barriles)
+		game.addVisual(paraguas)
+		game.addVisual(sombrero)
+		game.addVisual(cartera)
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({pausa.actuar()})
