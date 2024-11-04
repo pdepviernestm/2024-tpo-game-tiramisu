@@ -30,8 +30,8 @@ object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [boton
     cursor.iniciar(botones)
     if(!controlesIniciados) {
       controlesIniciados = true
-      keyboard.u().onPressDo({ cursor.desplazar(-1) })
-      keyboard.j().onPressDo({ cursor.desplazar(1) })
+      keyboard.up().onPressDo({ cursor.desplazar(-1) })
+      keyboard.down().onPressDo({ cursor.desplazar(1) })
       keyboard.enter().onPressDo({ cursor.seleccionar() })
     }
   }
