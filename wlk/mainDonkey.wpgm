@@ -8,7 +8,7 @@ program DonkeyKongGame {
 	game.cellSize(40)
 	game.boardGround("fondoNegro.jpg")
 
-	menu.iniciar()
+	menuPrincipal.iniciar()
 
 	game.start()
 }
