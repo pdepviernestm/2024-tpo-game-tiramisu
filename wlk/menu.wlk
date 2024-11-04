@@ -5,6 +5,7 @@ import sonidos.*
 class Menu {
   var property image
   var property botones
+  var controlesIniciados = false
   var property position = game.origin()
 
   method iniciar() {
@@ -18,22 +19,24 @@ class Menu {
     game.removeVisual(cursor)
     botones.forEach({ boton => game.removeVisual(boton) })
   }
-}
 
-object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir]){
-  var controlesIniciados = false
-
-  override method iniciar() {
-    sonidos.iniciarSonido(sonidos.nombreGame())
-    sonidos.iniciarMusica(sonidos.musicaMenu())
-    super()
-    cursor.iniciar(botones)
+  method iniciarTeclas() {
     if(!controlesIniciados) {
       controlesIniciados = true
       keyboard.up().onPressDo({ cursor.desplazar(-1) })
       keyboard.down().onPressDo({ cursor.desplazar(1) })
       keyboard.enter().onPressDo({ cursor.seleccionar() })
     }
+  }
+}
+
+object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir]){
+  override method iniciar() {
+    sonidos.iniciarSonido(sonidos.nombreGame())
+    sonidos.iniciarMusica(sonidos.musicaMenu())
+    super()
+    self.iniciarTeclas()
+    cursor.iniciar(botones)
   }
 }
 
