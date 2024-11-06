@@ -70,7 +70,7 @@ object nivel1 {
 
 
 //EVENTOS REPETITIVOS
-	    game.onTick(300, "Se cae", { if(!mario.enBase() and !menuPausa.actuando()) mario.caer() })
+	    game.onTick(300, "Se cae", { if(!mario.enBase() and !menuPausa.actuando() and !mario.enEscalera()) mario.caer() })
 
 	    game.onTick(10000, "Comentarios", { if(!menuPausa.actuando())sonidos.iniciarListaSonido(sonidos.marioHabla()) })
 
