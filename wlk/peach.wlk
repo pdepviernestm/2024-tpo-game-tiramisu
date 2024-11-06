@@ -6,11 +6,13 @@ import nivel1.*
 
 object peach {
     var property position = game.at(2, 13)
+    var property colisionable = false 
+    var property escalable = false 
+    
     const imagenes = ["peach3.png","peach1.png","peach2.png"]
     var indice = 0
     var conMario = false
     var imagen = "peach3.png"
-
     method image() = imagen
 
     method moverse() {
@@ -22,13 +24,16 @@ object peach {
     method actuar() {
         if(mario.items().size() == 3)
         conMario = true
-        game.schedule(1000, {menuGanar.actuar()})
+        menuGanar.actuar()
     }
 }
 
 class Item {
     var property position
     const property image
+
+    var property colisionable = false
+    var property escalable = false
 
     method actuar() {
         mario.items().add(self)

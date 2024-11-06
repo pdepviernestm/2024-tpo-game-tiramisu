@@ -5,19 +5,28 @@ import sonidos.*
 class Menu {
   var property image
   var property botones
+  var property mousePosition
   var property position = game.origin()
 
   method iniciar() {
     game.addVisual(self)
     game.addVisual(cursor)
+    cursor.iniciar(botones, mousePosition)
     botones.forEach({ boton => game.addVisual(boton) })
   }
 
   method cerrar() {
     game.allVisuals().forEach({ n => game.removeVisual(n) })
   }
+}
 
-  method iniciarTeclas() {
+object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir], mousePosition = 5){
+  method inicioPrincipal(){
+    self.iniciar()
+
+    sonidos.iniciarSonido(sonidos.nombreGame())
+    sonidos.iniciarMusica(sonidos.musicaMenu())
+
     keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
     keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
     keyboard.up().onPressDo({ cursor.desplazar(-1) })
@@ -26,42 +35,42 @@ class Menu {
   }
 }
 
-object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir]){
-  override method iniciar() {
-    super()
-    cursor.iniciar(botones)
-  }
-  method inicioPrincipal(){
-    sonidos.iniciarSonido(sonidos.nombreGame())
-    sonidos.iniciarMusica(sonidos.musicaMenu())
-    self.iniciar()
-    self.iniciarTeclas()
-  }
-}
-
-object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [botonVolver]) {
-  override method iniciar() {
-    super()
-    cursor.iniciar(botones)
-  }
-}
+object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [botonVolver], mousePosition = 3) {}
 
 class MenuFinal {
   const sonido
   const property image
   const property position = game.origin()
   method actuar(){
+    menuPausa.actuando(true)
     game.addVisual(self)
-    game.sound(sonido).play()
+    sonidos.iniciarSonido(sonido)
     sonidos.pararMusica()
-    game.schedule(250, { game.stop() })
+    game.schedule(10000, { game.stop() })
   }
-  
 }
-object menuPerder inherits MenuFinal (image = "menuPerder0.png", sonido = sonidos.marioMuere()){}
-object menuGanar inherits MenuFinal (image = "menuGanar0.png", sonido = sonidos.ganar()){}
-object menuPausa inherits MenuFinal (image = "menuPausa0.png", sonido = sonidos.click()){
-  var property actuando = false
+object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere()){}
+object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar()){
+  override method actuar(){
+    super()
+    game.addVisual(corazonWin)
+    game.onTick(200,"Cambiar foto", { corazonWin.cambiarImagen() })
+  }
+}
+object corazonWin {
+  var property image = "corazonPequeno.png"
+  var property position = game.at(7, 7)
+  var index = 0
+  method cambiarImagen() {
+    if(index < 1) {index += 1 
+    image = "corazonGrande.png"
+    }
+    else{ index = 0
+    image = "corazonPequeno.png"}
+  }
+}
+object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click()){
+    var property actuando = false
     override method actuar() {
     if(actuando){
     game.removeVisual(self)
@@ -83,13 +92,10 @@ object cursor {
   
   method image() = "mouse.png"
   
-  method iniciar(botones) {
+  method iniciar(botones, mousePosition) {
     botonesActuales = botones
     indice = 0
-    if(botones == menuPrincipal.botones())
-      self.nuevaPosition(botonesActuales.get(indice).position().right(5))
-    else
-      self.nuevaPosition(botonesActuales.get(indice).position().right(3))
+    position = botonesActuales.get(indice).position().right(mousePosition)
   }
 
   method nuevaPosition(newPosition) { position = newPosition }

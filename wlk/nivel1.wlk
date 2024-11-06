@@ -19,7 +19,7 @@ object nivel1 {
 	const teclasSaltar = [keyboard.space()]
 	const teclasEscalarArriba = [keyboard.up(), keyboard.w()]
 	const teclasEscalarAbajo = [keyboard.down(), keyboard.s()]
-
+	
     method cargarNivel() {
 		sonidos.iniciarSonido(sonidos.iniciarNivel())
 		sonidos.iniciarMusica(sonidos.musicaNivel1())
@@ -27,7 +27,7 @@ object nivel1 {
 		//CARGAR: Bases//
 		bases.add(new Base(ejeXBase = 0, ejeYBase = 1, ancho = 13))
 		bases.add(new Base(ejeXBase = 1, ejeYBase = 4, ancho = 15))
-		bases.add(new Base(ejeXBase = 0, ejeYBase = 7, ancho = 14))
+		bases.add(new Base(ejeXBase = 0, ejeYBase = 7, ancho = 13))
 		bases.add(new Base(ejeXBase = 2, ejeYBase = 10, ancho = 18))
 		bases.add(new Base(ejeXBase = 1, ejeYBase = 12, ancho = 5))
 		bases.forEach({ n => n.crearPiso() })
@@ -56,13 +56,17 @@ object nivel1 {
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({menuPausa.actuar()})
+
 		keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
     	keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
-	    teclasDer.forEach { n => n.onPressDo({ mario.derecha() })}
-        teclasIzq.forEach { n => n.onPressDo({ mario.izquierda() })}
+
+	    teclasDer.forEach { n => n.onPressDo({ mario.andar(0) })}
+        teclasIzq.forEach { n => n.onPressDo({ mario.andar(1) })}
+
 	    teclasSaltar.forEach { n => n.onPressDo({ mario.saltar() })}
-	    teclasEscalarArriba.forEach { n => n.onPressDo({ mario.escalar() })}
-	    teclasEscalarAbajo.forEach { n => n.onPressDo({ mario.escalarAbajo() })}
+
+	    teclasEscalarArriba.forEach { n => n.onPressDo({ mario.escalar(1) })}
+	    teclasEscalarAbajo.forEach { n => n.onPressDo({ mario.escalar(-1) })}
 
 
 //EVENTOS REPETITIVOS

@@ -24,6 +24,9 @@ class Corazon {
     const ejeYPixel
     var imagen = "marioVida.png"
 
+    var property colisionable = false 
+    var property escalable = false 
+
     method position() = game.at(ejeXPixel, ejeYPixel)
 
     method image() = imagen

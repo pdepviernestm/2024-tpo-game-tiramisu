@@ -5,7 +5,6 @@ object sonidos {
   const property marioMuere = "marioDead.wav"
   const property marioPierdeVida = "marioPierdeVida.wav"
   const property marioMuerePorFuego = "morirPorFuego.wav"
-  const property marioCae = "marioCae.wav"
   const property moverCursor = "cursorNavegar.mp3"
   const property click = "click.mp3"
   const property ganar = "win.wav"
@@ -16,21 +15,25 @@ object sonidos {
 
   var musicaActual = null
 
+  var volumen = 0.25
+
   method iniciarMusica(song) {
-    if(musicaActual == null) { //Se podria hacer diferente
+    if(musicaActual == null) {
       if(musicaActual != null) musicaActual.stop()
       musicaActual = game.sound(song)
       musicaActual.shouldLoop(true)
       musicaActual.play()
-      musicaActual.volume(0.25)
+      musicaActual.volume(volumen)
     }
   }
 
   method pararMusica() { 
   if(musicaActual != null)  musicaActual.stop() musicaActual = null
   }
-    method cambiarVolumen(volACambiar) {
-    if(musicaActual != null) musicaActual.volume(musicaActual.volume() + volACambiar)
+  method cambiarVolumen(volACambiar) {
+    if(volumen + volACambiar >= 0 && volumen + volACambiar <= 1){
+    volumen += volACambiar
+    if(musicaActual != null) musicaActual.volume(volumen)}
   }
   method pausarMusica() { 
     if(musicaActual != null)  musicaActual.pause()
@@ -41,11 +44,13 @@ object sonidos {
 
   method iniciarSonido(sonido) {
     const sound = game.sound(sonido)
+    sound.volume(volumen)
     sound.play()
   }
 
   method iniciarListaSonido(lista) {
     const sound = game.sound(lista.anyOne())
+    sound.volume(volumen)
     sound.play()
   }
 

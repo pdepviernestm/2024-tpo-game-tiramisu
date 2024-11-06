@@ -11,8 +11,12 @@ object barriles {
 }
 
 class Barril {
-    var property position = new MutablePosition(x=11, y=11)
+    var property colisionable = false
+    var property escalable = false
+    
     var property direccionActual = izquierda
+
+    var property position = new MutablePosition(x=11, y=11)
     var image = imagenes.get(index)
     var cayo = false
     var index = 0
@@ -38,7 +42,7 @@ class Barril {
             if(objetosDeAbajo.contains(mario)) { position = abajo.desplazar(position) self.cayo(true) }
             else{
                 const select = objetosDeAbajo.anyOne()
-                if(select.soyBase()){
+                if(select.colisionable()){
                     if(cayo) { self.cayo(false) direccionActual = direccionActual.invertir() position = direccionActual.desplazar(position) }
                     else position = direccionActual.desplazar(position)
                     self.cambiarImagen()

@@ -1,3 +1,5 @@
+import mario.*
+
 class Base {
     const ejeXBase
     const ejeYBase
@@ -15,10 +17,13 @@ class Base {
 class Pixel {
     const ejeXPixel
     const ejeYPixel
-    const property soyBase = true
-    const property soyEscalera = false
+    var property colisionable = true
+    var property escalable = false
+    
     method position() = game.at(ejeXPixel, ejeYPixel)
     method image() = "pixelBase.png"
 
-    method actuar() {}
+    method actuar() {
+    }
+    
 }

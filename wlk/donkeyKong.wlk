@@ -4,8 +4,10 @@ import menu.menuPausa
 
 
 object donkey {
+  var property colisionable = false 
+  var property escalable = false 
+
   var property position = game.at(11, 11)
-  var property saltando = 0
   var image = "donkeyy.png"
 	const serieBarril = ["donkey4.png", "donkey1.png", "donkey3.png"]
   var indice = 0
