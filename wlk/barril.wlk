@@ -1,6 +1,8 @@
 import base.*
 import escalera.*
 import mario.*
+import menu.menuPausa
+
 
 object barriles {
     var property position = game.at(14, 11)
@@ -27,6 +29,7 @@ class Barril {
     }
 
     method mover() { 
+        if(!menuPausa.actuando()){
         const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
         if(position.y() < -1)
             self.detener()
@@ -47,7 +50,7 @@ class Barril {
             }
         }
     }
-
+    }
     method detener() { game.removeVisual(self) }
 
     method iniciar(){

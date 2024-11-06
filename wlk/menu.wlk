@@ -46,18 +46,34 @@ object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [boton
   }
 }
 
-object menuPausa {
-  method image() = "menuGanar.png"
-  method actuar(){game.addVisual(self)}
-
+class MenuFinal {
+  const sonido
+  const property image
+  const property position = game.origin()
+  method actuar(){
+    game.addVisual(self)
+    game.sound(sonido).play()
+    sonidos.pararMusica()
+    game.schedule(250, { game.stop() })
+  }
+  
 }
-object menuPerder {
-  method image() = "menuPerder.png"
-  method actuar(){game.addVisual(self)}
-}
-object menuGanar{
-  method image() = "menuGanar.png"
-  method actuar(){game.addVisual(self)}
+object menuPerder inherits MenuFinal (image = "menuPerder0.png", sonido = sonidos.marioMuere()){}
+object menuGanar inherits MenuFinal (image = "menuGanar0.png", sonido = sonidos.ganar()){}
+object menuPausa inherits MenuFinal (image = "menuPausa0.png", sonido = sonidos.click()){
+  var property actuando = false
+    override method actuar() {
+    if(actuando){
+    game.removeVisual(self)
+    sonidos.despausarMusica()
+    actuando = false
+    }
+    else{
+    sonidos.pausarMusica()
+    game.addVisual(self)
+    actuando = true
+    }
+  }
 }
 
 object cursor {
@@ -135,15 +151,3 @@ object botonVolver inherits Boton(imagen = "botonAtras.png", ejeX = 10.5, ejeY =
   }
 }
 
-object pausa {
-  var property image = "menuPause.jpg"
-  method actuar() {
-    sonidos.pausarMusica()
-    game.addVisual(self)
-    keyboard.p().onPressDo({self.despausa()})
-  }
-  method despausa() {
-    game.removeVisual(self)
-    sonidos.despausarMusica()
-      }
-}

@@ -1,3 +1,4 @@
+import menu.*
 import base.*
 import sonidos.*
 import corazones.*
@@ -134,34 +135,16 @@ object mario {
       corazones.quitarCorazon()
       self.reaparecer()
       }
-    else self.endGame()
+    else {
+      if (mirarDer) imagen = "marioDeadD.png"
+        else imagen = "marioDeadI.png"
+        menuPerder.actuar()
+    }
   }
   
   method reaparecer() {
     self.position(game.at(1,2))
     imagen = "marioD.png"
-  }
-  
-  method tocarFuego() {
-    if(vida >= 2){
-    vida -= 2
-    corazones.quitarCorazon()
-    corazones.quitarCorazon()
-    self.reaparecer()
-    game.sound(sonidos.marioMuerePorFuego()).play()}
-    else self.endGame()
-  }
-
-  method endGame() {
-      if (mirarDer) imagen = "marioDeadD.png"
-      else imagen = "marioDeadI.png"
-      game.sound(sonidos.marioMuere()).play()
-      sonidos.pararMusica()
-      game.schedule(1000, { game.stop() })
-  }
-  
-  method winGame() {
-    game.stop()
   }
 }
 

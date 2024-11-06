@@ -1,5 +1,7 @@
 import mario.*
 import barril.*
+import menu.menuPausa
+
 
 object donkey {
   var property position = game.at(11, 11)
@@ -16,5 +18,6 @@ object donkey {
     if(indice < 2) indice += 1 else indice = 0
     image = serieBarril.get(indice)
     if(indice == 2) { const barril = new Barril() game.addVisual(barril) barril.iniciar() }
+    
   }
 }

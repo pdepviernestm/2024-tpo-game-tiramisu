@@ -1,3 +1,4 @@
+import menu.*
 import sonidos.*
 import mario.*
 import nivel1.*
@@ -21,8 +22,7 @@ object peach {
     method actuar() {
         if(mario.items().size() == 3)
         conMario = true
-        sonidos.iniciarSonido(sonidos.ganar())
-        game.schedule(1000, {mario.winGame()})
+        game.schedule(1000, {menuGanar.actuar()})
     }
 }
 

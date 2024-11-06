@@ -4,7 +4,6 @@ import mario.*
 import escalera.*
 import corazones.*
 import sonidos.*
-import fuego.*
 import menu.*
 import donkeyKong.*
 import peach.*
@@ -42,10 +41,6 @@ object nivel1 {
 		escaleras.add(new Escalera(ejeXBase = 5, ejeYBase = 11, alto = 1))
 		escaleras.forEach({ n => n.crearEscalera() })
 
-		//CARGAR: Fuego//
-		//fuegoPiso = new Fuego(ejeXBase = 0 , ejeYBase = 0, ancho = 15)
-	    //fuegoPiso.crearFuego()
-
 		//CARGAR: Vida//
 	    corazones.agregarCorazon()
 
@@ -60,7 +55,7 @@ object nivel1 {
 		game.addVisual(cartera)
 
 //DEFINIR TECLAS 
-        keyboard.p().onPressDo({pausa.actuar()})
+        keyboard.p().onPressDo({menuPausa.actuar()})
 		keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
     	keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
 	    teclasDer.forEach { n => n.onPressDo({ mario.derecha() })}
@@ -71,15 +66,13 @@ object nivel1 {
 
 
 //EVENTOS REPETITIVOS
-	    game.onTick(300, "Se cae", { if(!mario.enBase()) mario.caer() })
+	    game.onTick(300, "Se cae", { if(!mario.enBase() and !menuPausa.actuando()) mario.caer() })
 
-	    //game.onTick(500, "Fuego", { fuegoPiso.cambiarFotos() })
+	    game.onTick(10000, "Comentarios", { if(!menuPausa.actuando())sonidos.iniciarListaSonido(sonidos.marioHabla()) })
 
-	    game.onTick(10000, "Comentarios", { sonidos.iniciarListaSonido(sonidos.marioHabla()) })
-
-		game.onTick(1000, "Donkey Kong lanza Barriles", {donkey.lanzarBarril()})
+		game.onTick(1000, "Donkey Kong lanza Barriles", {if(!menuPausa.actuando())donkey.lanzarBarril()})
 		
-		game.onTick(500, "Peach se mueve", {peach.moverse()})
+		game.onTick(500, "Peach se mueve", {if(!menuPausa.actuando())peach.moverse()})
 
 		//game.onTick(1000, "Barrilazo", {})
 
