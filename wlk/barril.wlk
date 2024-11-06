@@ -9,7 +9,7 @@ object barriles {
 }
 
 class Barril {
-    var property position = game.at(11, 11)
+    var property position = new MutablePosition(x=11, y=11)
     var property direccionActual = izquierda
     var image = imagenes.get(index)
     var cayo = false
@@ -26,7 +26,7 @@ class Barril {
         image = imagenes.get(index)
     }
 
-    method mover() { //NO MODIFICA LA IMAGEN//
+    method mover() { 
         const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
         if(position.y() < -1)
             self.detener()

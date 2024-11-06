@@ -5,7 +5,6 @@ import sonidos.*
 class Menu {
   var property image
   var property botones
-  var controlesIniciados = false
   var property position = game.origin()
 
   method iniciar() {
@@ -15,29 +14,50 @@ class Menu {
   }
 
   method cerrar() {
-    game.removeVisual(self)
-    game.removeVisual(cursor)
-    botones.forEach({ boton => game.removeVisual(boton) })
+    game.allVisuals().forEach({ n => game.removeVisual(n) })
   }
 
   method iniciarTeclas() {
-    if(!controlesIniciados) {
-      controlesIniciados = true
-      keyboard.up().onPressDo({ cursor.desplazar(-1) })
-      keyboard.down().onPressDo({ cursor.desplazar(1) })
-      keyboard.enter().onPressDo({ cursor.seleccionar() })
-    }
+    keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
+    keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
+    keyboard.up().onPressDo({ cursor.desplazar(-1) })
+    keyboard.down().onPressDo({ cursor.desplazar(1) })
+    keyboard.enter().onPressDo({ cursor.seleccionar() })
   }
 }
 
 object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir]){
   override method iniciar() {
-    sonidos.iniciarSonido(sonidos.nombreGame())
-    sonidos.iniciarMusica(sonidos.musicaMenu())
     super()
-    self.iniciarTeclas()
     cursor.iniciar(botones)
   }
+  method inicioPrincipal(){
+    sonidos.iniciarSonido(sonidos.nombreGame())
+    sonidos.iniciarMusica(sonidos.musicaMenu())
+    self.iniciar()
+    self.iniciarTeclas()
+  }
+}
+
+object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [botonVolver]) {
+  override method iniciar() {
+    super()
+    cursor.iniciar(botones)
+  }
+}
+
+object menuPausa {
+  method image() = "menuGanar.png"
+  method actuar(){game.addVisual(self)}
+
+}
+object menuPerder {
+  method image() = "menuPerder.png"
+  method actuar(){game.addVisual(self)}
+}
+object menuGanar{
+  method image() = "menuGanar.png"
+  method actuar(){game.addVisual(self)}
 }
 
 object cursor {
@@ -59,7 +79,7 @@ object cursor {
   method nuevaPosition(newPosition) { position = newPosition }
 
   method desplazar(desplazamiento) {
-    var nuevoIndice = indice + desplazamiento
+    const nuevoIndice = indice + desplazamiento
     if (nuevoIndice >= 0 and nuevoIndice < botonesActuales.size()) {
       sonidos.iniciarSonido(sonidos.moverCursor())
       indice = nuevoIndice
@@ -108,16 +128,22 @@ object botonSalir inherits Boton(imagen = "botonSalir.png", ejeX = 1.5, ejeY = 3
   }
 }
 
-object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [botonVolver]) {
-  override method iniciar() {
-    super()
-    cursor.iniciar(botones)
-  }
-}
-
 object botonVolver inherits Boton(imagen = "botonAtras.png", ejeX = 10.5, ejeY = 1) {
   override method actuar() {
     menuControles.cerrar()
     menuPrincipal.iniciar()
   }
+}
+
+object pausa {
+  var property image = "menuPause.jpg"
+  method actuar() {
+    sonidos.pausarMusica()
+    game.addVisual(self)
+    keyboard.p().onPressDo({self.despausa()})
+  }
+  method despausa() {
+    game.removeVisual(self)
+    sonidos.despausarMusica()
+      }
 }

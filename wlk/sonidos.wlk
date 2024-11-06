@@ -29,6 +29,15 @@ object sonidos {
   method pararMusica() { 
   if(musicaActual != null)  musicaActual.stop() musicaActual = null
   }
+    method cambiarVolumen(volACambiar) {
+    if(musicaActual != null) musicaActual.volume(musicaActual.volume() + volACambiar)
+  }
+  method pausarMusica() { 
+    if(musicaActual != null)  musicaActual.pause()
+  }
+  method despausarMusica() { 
+    if(musicaActual != null)  musicaActual.resume()
+  }
 
   method iniciarSonido(sonido) {
     const sound = game.sound(sonido)

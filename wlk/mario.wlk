@@ -4,7 +4,7 @@ import corazones.*
 
 object mario {
   const property marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
-  var property position = game.at(0,2)
+  var property position = new MutablePosition(x=0,y=2)
   var property saltando = false
   var property escalando = false
   var property andar = false

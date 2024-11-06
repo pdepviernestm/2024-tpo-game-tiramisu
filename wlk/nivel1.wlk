@@ -61,7 +61,8 @@ object nivel1 {
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({pausa.actuar()})
-
+		keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
+    	keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
 	    teclasDer.forEach { n => n.onPressDo({ mario.derecha() })}
         teclasIzq.forEach { n => n.onPressDo({ mario.izquierda() })}
 	    teclasSaltar.forEach { n => n.onPressDo({ mario.saltar() })}
