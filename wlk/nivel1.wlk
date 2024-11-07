@@ -63,8 +63,8 @@ const pistola = new Pistola(position = game.at(1, 2), image = "pistola.png")
 		keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
     	keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
 
-	    teclasDer.forEach { n => n.onPressDo({ mario.andar(0) })}
-        teclasIzq.forEach { n => n.onPressDo({ mario.andar(1) })}
+	    teclasDer.forEach { n => n.onPressDo({ mario.caminar(derecha) })}
+        teclasIzq.forEach { n => n.onPressDo({ mario.caminar(izquierda) })}
 
 	    teclasSaltar.forEach { n => n.onPressDo({ mario.saltar() })}
 

@@ -7,43 +7,41 @@ import barril.*
 
 object mario {
   const property marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
-  var property position = new MutablePosition(x=0,y=2)
+  var property position = new MutablePosition(x = 0, y = 2)
   var property saltando = false
   var property andar = false
   var property mirarDer = true
   var property vida = 5
   var property puedeCaer = true
+  var property sentidoActual = derecha
   var imagen = "marioD.png"
   const property items = []
 
   method image() = imagen
 
-  method andar(donde) {
-    var voy
+  method caminar(sentido) {
     var imagen1
     var imagen2
-
-    if (donde == 0) {
+    if(sentido.desplazar(position) == derecha.desplazar(position)) {
       imagen1 = "marioD.png"
       imagen2 = "marioDD.png"
-      voy = self.position().right(1)
-      }
+    }
     else {
       imagen1 = "marioI.png"
       imagen2 = "marioII.png"
-      voy = self.position().left(1)
+      sentidoActual = sentidoActual.invertir()
     }
-    if(self.dentroDePantalla(voy) and !menuPausa.actuando()){
-      if (andar){
+    if(self.dentroDePantalla(sentido.desplazar(position)) and !menuPausa.actuando()) {
+      if(andar) {
         imagen = imagen1
         andar = false
       }
       else {
         imagen = imagen2
-        game.schedule(500,  {imagen = imagen1 andar = false}) 
+        game.schedule(500, { imagen = imagen1 andar = false })
         andar = true
       }
-      self.position(voy)
+      position = sentido.desplazar(position)
       sonidos.iniciarListaSonido(sonidos.marioCamina())
     }
   }
@@ -149,8 +147,8 @@ class Pistola inherits Item {
   var property cantidadBalas = (1..3).anyOne()
 
   override method actuar() {
-    game.removeVisual(self) //quita la pistola de pantalla, y sale mario con pistola
-    keyboard.t().onPressDo({ if(self.cantidadBalas() > 0 ) mario.disparar(self) }) // se activa por unica vez, disparar para mario. mientras tenga pistola.
+    game.removeVisual(self)
+    keyboard.t().onPressDo({ if(self.cantidadBalas() > 0 ) mario.disparar(self) })
   }
 
   method usarBala() { cantidadBalas -= 1 }
@@ -158,9 +156,9 @@ class Pistola inherits Item {
 
 class Bala {
   var property colisionable = false
-  var property direccion = derecha
+  var property direccion = mario.sentidoActual()
   var property image = "bala.png"
-  var property position = new MutablePosition(x = mario.position().x(), y = mario.position().y())
+  var property position = new MutablePosition(x = mario.sentidoActual().desplazar(mario.position()).x(), y = mario.position().y())
 
   method desplazar() {
     if(!menuPausa.actuando()) {
@@ -169,7 +167,10 @@ class Bala {
     }
   }
 
-  method iniciar() { game.onTick(30, "Avanzar", { self.desplazar() }) }
+  method iniciar() { game.onTick(30, "Avanzar", {
+    self.desplazar() 
+    game.whenCollideDo(self, { elemento => if(!elemento.escalable()) game.removeVisual(elemento) }) })
+  }
 
   method detener() { game.removeVisual(self) }
 }
