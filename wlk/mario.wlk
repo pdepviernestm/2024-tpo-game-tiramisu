@@ -2,6 +2,8 @@ import menu.*
 import base.*
 import sonidos.*
 import corazones.*
+import peach.*
+import barril.*
 
 object mario {
   const property marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
@@ -132,5 +134,42 @@ object mario {
     self.position(game.at(1,2))
     imagen = "marioD.png"
   }
+
+  method disparar(unaPistola) {
+    const bala = new Bala()
+    game.addVisual(bala)
+    unaPistola.usarBala()
+    bala.iniciar()
+  }
 }
 
+
+//////////////////////////////ARMA/////////////////////////////////////////////
+class Pistola inherits Item {
+  var property cantidadBalas = (1..3).anyOne()
+
+  override method actuar() {
+    game.removeVisual(self) //quita la pistola de pantalla, y sale mario con pistola
+    keyboard.t().onPressDo({ if(self.cantidadBalas() > 0 ) mario.disparar(self) }) // se activa por unica vez, disparar para mario. mientras tenga pistola.
+  }
+
+  method usarBala() { cantidadBalas -= 1 }
+}
+
+class Bala {
+  var property colisionable = false
+  var property direccion = derecha
+  var property image = "bala.png"
+  var property position = new MutablePosition(x = mario.position().x(), y = mario.position().y())
+
+  method desplazar() {
+    if(!menuPausa.actuando()) {
+      if(position.y() < -1) self.detener()
+      else position = direccion.desplazar(position)
+    }
+  }
+
+  method iniciar() { game.onTick(30, "Avanzar", { self.desplazar() }) }
+
+  method detener() { game.removeVisual(self) }
+}

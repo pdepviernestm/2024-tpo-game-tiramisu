@@ -44,6 +44,8 @@ object nivel1 {
 		//CARGAR: Vida//
 	    corazones.agregarCorazon()
 
+const pistola = new Pistola(position = game.at(1, 2), image = "pistola.png")
+
 		//Cargar: Objetos//
 	    game.showAttributes(mario)
 	    game.addVisual(mario)
@@ -53,6 +55,7 @@ object nivel1 {
 		game.addVisual(paraguas)
 		game.addVisual(sombrero)
 		game.addVisual(cartera)
+		game.addVisual(pistola)
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({menuPausa.actuar()})
