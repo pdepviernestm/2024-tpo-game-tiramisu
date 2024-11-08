@@ -16,7 +16,6 @@ class Escalera {
 class Pixel {
     const ejeXPixel
     const ejeYPixel
-    var property romper = false
     var property colisionable = false 
     var property escalable = true 
 
@@ -24,5 +23,7 @@ class Pixel {
     method image() = "escaleraPixel.png"
     
     method actuar() {
-    }  
+    } 
+
+    method detener() {}
 }

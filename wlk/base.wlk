@@ -24,4 +24,5 @@ class Pixel {
   method image() = "pixelBase.png"
 
   method actuar() {}
+  method detener() {}
 }

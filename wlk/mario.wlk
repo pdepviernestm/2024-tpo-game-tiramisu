@@ -14,13 +14,19 @@ object mario {
   var property saltando = false
   var property andar = false
   var property mirarDer = true
-  var property vida = 5
+  var property vida = 3
   var property puedeCaer = true
   var property sentidoActual = derecha
+
+  var property escalable = false
+  var property colisionable = false
+  
   var imagen = "marioD.png"
   const property items = []
 
   method image() = imagen
+
+  method detener() {}
 
   method caminar(sentido) {
     var imagen1
@@ -28,11 +34,14 @@ object mario {
     if(sentido.desplazar(position) == derecha.desplazar(position)) {
       imagen1 = "marioD.png"
       imagen2 = "marioDD.png"
+      sentidoActual = izquierda.invertir()
+      mirarDer = true
     }
     else {
       imagen1 = "marioI.png"
       imagen2 = "marioII.png"
-      sentidoActual = sentidoActual.invertir()
+      sentidoActual = derecha.invertir()
+      mirarDer=false
     }
     if(self.dentroDePantalla(sentido.desplazar(position))) {
       if(andar) {
@@ -67,9 +76,9 @@ object mario {
       else{ 
         imagen= "marioUpI.png"
         imagenOld = "marioI.png"
-        }
+      }
     self.position(self.position().up(1))
-    game.schedule(500, { 
+    game.schedule(300, {
       if(not(self.enBase()))self.position(self.position().down(1)) 
       game.schedule(20,  {imagen = imagenOld}) 
     self.saltando(false)
@@ -92,17 +101,12 @@ object mario {
 
   method puedoEscalar(donde) {
     if(donde == 1)
-      return self.enEscalera()
+      return self.sobreEscalera(position)
     else
-      return self.sobreEscalera()
+      return self.sobreEscalera(position.down(1))
   }
 
-  method enEscalera() = game.colliders(self).any({elem => elem.escalable()})
- 
-  method sobreEscalera() {
-    const bloqueDeArriba = self.position().down(1)
-    return game.getObjectsIn(bloqueDeArriba).any({ n => n.escalable()})
-  }
+  method sobreEscalera(pos) = game.getObjectsIn(pos).any({ n => n.escalable()})
 
   method enBase() {
     const bloqueDeAbajo = self.position().down(1)
@@ -110,7 +114,7 @@ object mario {
   }
 
   method caer() {
-    if(!self.enBase()and !self.enEscalera())
+    if(!self.enBase()and !self.sobreEscalera(position))
     {
       const nuevaPos = self.position().down(1)
       if (!self.dentroDePantalla(nuevaPos)) self.quitarVida()
@@ -141,7 +145,7 @@ object mario {
   }
   
   method reaparecer() {
-    self.position(game.at(1,2))
+    self.position(game.at(1, 2))
     imagen = "marioD.png"
   }
 
@@ -153,7 +157,7 @@ object mario {
     else
       imagen = "marioDisparaI.png"
     game.schedule(250, { imagen = imagenOld })
-    const bala = new Bala(numeroBala = pistola.balasDisparadas(), direccion = self.sentidoActual())
+    const bala = new Bala(numeroBala = pistola.cantidadBalas(), direccion = self.sentidoActual())
     game.addVisual(bala)
     bala.iniciar()
   }

@@ -56,15 +56,16 @@ object nivel1 {
 
 		//Cargar: Objetos//
 	    game.showAttributes(mario)
-	    game.addVisual(mario)
-		game.addVisual(donkey)
 		game.addVisual(peach)
+		game.addVisual(carcel)
+		game.addVisual(donkey)
 		game.addVisual(barriles)
 		game.addVisual(paraguas)
 		game.addVisual(sombrero)
 		game.addVisual(cartera)
 		game.addVisual(pistola)
-		game.addVisual(carcel)
+		game.addVisual(objetoInvisible)
+	    game.addVisual(mario)
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({menuPausa.actuar()})

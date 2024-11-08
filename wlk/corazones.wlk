@@ -1,7 +1,7 @@
 object corazones { 
-    const x = 9
+    const x = 11
     const y = 14
-    const cant = 5
+    const cant = 3
     const corazones = []
     
     method agregarCorazon() {

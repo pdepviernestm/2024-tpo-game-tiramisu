@@ -17,7 +17,6 @@ class Barril {
   var indice = 0
   var cayo = false
   const property numeroBarril
-  var property romper = true
   var property nombreBarril = ""
   var property escalable = false
   var image = imagenes.get(indice)

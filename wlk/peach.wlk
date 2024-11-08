@@ -4,7 +4,7 @@ import mario.*
 import nivel1.*
 
 object peach {
-  var property position = game.at(1, 13)
+  var property position = game.at(2, 13)
   var property colisionable = false 
   var property escalable = false
   var indice = 0
@@ -45,5 +45,12 @@ object carcel {
 
   method abrir() {
     imagen = "celdaAbierta.png"
+  }
+}
+
+object objetoInvisible {
+  const property position = peach.position().right(1)
+  method actuar() {
+    peach.actuar()
   }
 }

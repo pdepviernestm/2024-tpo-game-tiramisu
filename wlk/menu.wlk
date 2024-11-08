@@ -20,7 +20,7 @@ class Menu {
   }
 }
 
-object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonSalir], mousePosition = 5){
+object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonComoJugar, botonSalir], mousePosition = 5){
   method inicioPrincipal(){
     self.iniciar()
 
@@ -35,14 +35,18 @@ object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [boton
   }
 }
 
-object menuControles inherits Menu(image = "controlesMenu.jpg", botones = [botonVolver], mousePosition = 3) {}
+
+const menuControles = new Menu (image = "controlesMenu.jpg", botones = [botonVolver], mousePosition = 3)
+
+const menuComoJugar = new Menu (image = "comoJugar.jpg", botones = [botonVolver], mousePosition = 3)
 
 class MenuFinal {
   const sonido
   const property image
   const property position = game.origin()
   const tiempo
-  method actuar(){
+
+  method actuar() {
     menuPausa.actuando(true)
     game.addVisual(self)
     sonidos.iniciarSonido(sonido)
@@ -50,14 +54,17 @@ class MenuFinal {
     game.schedule(tiempo, { game.stop() })
   }
 }
-object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 50){}
-object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 1000){
-  override method actuar(){
+
+object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 500){}
+
+object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 10000){
+  override method actuar() {
     super()
     game.addVisual(corazonWin)
     game.onTick(200,"Cambiar foto", { corazonWin.cambiarImagen() })
   }
 }
+
 object corazonWin {
   var property image = "corazonPequeno.png"
   var property position = game.at(7, 7)
@@ -88,7 +95,6 @@ object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.c
 
   method comprobacionPara(unaFuncion) { 
     if(!actuando) unaFuncion.apply()
-    else null
   }
 }
 
@@ -148,10 +154,18 @@ object botonControles inherits Boton(imagen="botonControles.png", ejeX = 1.5, ej
   }
 }
 
-object botonSalir inherits Boton(imagen = "botonSalir.png", ejeX = 1.5, ejeY = 3) {
+object botonComoJugar inherits Boton(imagen = "botonControles.png", ejeX = 1.5, ejeY = 3) {
+  override method actuar() {
+    menuPrincipal.cerrar()
+    menuComoJugar.iniciar()
+  }
+}
+
+object botonSalir inherits Boton(imagen = "botonSalir.png", ejeX = 1.5, ejeY = 2) {
   override method actuar() {
     sonidos.pararMusica()
     menuPrincipal.cerrar()
+    game.addVisual(menuPrincipal)
     sonidos.iniciarSonido(sonidos.marioHabla().get(2))
     game.schedule(500, { game.stop() })
   }

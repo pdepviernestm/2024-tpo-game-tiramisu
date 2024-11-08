@@ -13,3 +13,15 @@ program DonkeyKongGame {
 
 	game.start()
 }
+
+//Simplificar mirarDer y dirección
+//Cuando dispara aparece una img no conocida en la esquina`izquierda
+//Bug escalera, se puede desplazar cuando estas en el aire, no deberia
+//cambiar visual de arma, no se ve bien
+// NACHO HACE POLIMORFICO EL ARCHIVO DE SONIDOS FACILITO
+//modificar boton como jugar 
+
+
+//OPCIONALES
+// items con posiciones random sobre base, (el paraguas puede o no estar en el aire)
+//opcional agregar niveles que se generen
