@@ -1,9 +1,10 @@
-import menu.*
 import base.*
 import sonidos.*
 import corazones.*
 import peach.*
 import barril.*
+import items.*
+import menu.menuPerder
 
 object mario {
   const property marioGirando = ["marioMuriendo1.png", "marioMuriendo2.png", "marioMuriendo3.png", "marioMuriendo4.png", "marioMuriendo1.png"] 
@@ -31,7 +32,7 @@ object mario {
       imagen2 = "marioII.png"
       sentidoActual = sentidoActual.invertir()
     }
-    if(self.dentroDePantalla(sentido.desplazar(position)) and !menuPausa.actuando()) {
+    if(self.dentroDePantalla(sentido.desplazar(position))) {
       if(andar) {
         imagen = imagen1
         andar = false
@@ -107,11 +108,13 @@ object mario {
   }
 
   method caer() {
-    const nuevaPos = self.position().down(1)
+    if(!self.enBase()and !self.enEscalera())
+    {
+      const nuevaPos = self.position().down(1)
       if (!self.dentroDePantalla(nuevaPos)) self.quitarVida()
       else if(self.puedeCaer() and not(self.saltando())) {
       self.position(nuevaPos)
-    }
+    }}
   }
 
   method quitarVida() {
@@ -134,43 +137,13 @@ object mario {
   }
 
   method disparar(unaPistola) {
+    const imagenOld = imagen
+    if(mirarDer) imagen = "marioDisparaD.png"
+    else imagen = "marioDisparaI.png"
+    game.schedule(100, { imagen = imagenOld })
     const bala = new Bala()
     game.addVisual(bala)
     unaPistola.usarBala()
     bala.iniciar()
   }
-}
-
-
-//////////////////////////////ARMA/////////////////////////////////////////////
-class Pistola inherits Item {
-  var property cantidadBalas = (1..3).anyOne()
-
-  override method actuar() {
-    game.removeVisual(self)
-    keyboard.t().onPressDo({ if(self.cantidadBalas() > 0 ) mario.disparar(self) })
-  }
-
-  method usarBala() { cantidadBalas -= 1 }
-}
-
-class Bala {
-  var property colisionable = false
-  var property direccion = mario.sentidoActual()
-  var property image = "bala.png"
-  var property position = new MutablePosition(x = mario.sentidoActual().desplazar(mario.position()).x(), y = mario.position().y())
-
-  method desplazar() {
-    if(!menuPausa.actuando()) {
-      if(position.y() < -1) self.detener()
-      else position = direccion.desplazar(position)
-    }
-  }
-
-  method iniciar() { game.onTick(30, "Avanzar", {
-    self.desplazar() 
-    game.whenCollideDo(self, { elemento => if(!elemento.escalable()) game.removeVisual(elemento) }) })
-  }
-
-  method detener() { game.removeVisual(self) }
 }

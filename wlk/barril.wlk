@@ -8,6 +8,7 @@ object barriles {
     var property position = game.at(14, 11)
 
     method image() = "barriles.png"
+    method actuar() {} 
 }
 
 class Barril {
@@ -37,7 +38,10 @@ class Barril {
         const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
         if(position.y() < -1)
             self.detener()
-        if(objetosDeAbajo.isEmpty()) { position = abajo.desplazar(position) self.cayo(true) }
+        if(objetosDeAbajo.isEmpty()) { 
+            position = abajo.desplazar(position) 
+            image = "barril0.png" 
+            self.cayo(true) }
         else{
             if(objetosDeAbajo.contains(mario)) { position = abajo.desplazar(position) self.cayo(true) }
             else{
@@ -48,6 +52,7 @@ class Barril {
                     self.cambiarImagen()
                 }
                 else{
+                    image = "barril0.png"
                     position = abajo.desplazar(position)
                     self.cayo(true)
                 }

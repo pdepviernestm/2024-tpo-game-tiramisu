@@ -17,6 +17,7 @@ class Base {
 class Pixel {
     const ejeXPixel
     const ejeYPixel
+    
     var property colisionable = true
     var property escalable = false
     
