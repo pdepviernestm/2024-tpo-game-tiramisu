@@ -8,6 +8,8 @@ object sonidos {
   const property moverCursor = "cursorNavegar.mp3"
   const property click = "click.mp3"
   const property ganar = "win.wav"
+  const property peachLibre = "peachSound.mp3"
+  const property peachFeliz = "peachFeliz.mp3"
   const property iniciarNivel = "iniciarNivel.wav"
   const property marioCamina = ["marioWalk1.wav", "marioWalk2.wav", "marioWalk3.wav", "marioWalk4.wav", "marioWalk5.wav", "marioWalk6.wav"]
   const property marioHabla = ["marioComentario8.wav", "marioComentario7.wav", "marioComentario6.wav", "marioComentario5.wav", "marioComentario4.wav", "marioComentario3.wav", "marioComentario2.wav", "marioComentario1.wav"]

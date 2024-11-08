@@ -4,7 +4,6 @@ import mario.*
 import direccion.*
 import menu.menuPausa
 
-
 object barriles {
   var property position = game.at(14, 11)
 

@@ -1,5 +1,7 @@
 import menu.*
 import mario.*
+import sonidos.*
+
 
 
 class Item {
@@ -12,8 +14,7 @@ class Item {
   var property position = game.at(x, y)
 
   method actuar() {
-    mario.items().add(self)
-    game.removeVisual(self)
+    mario.agregarItem(self)
   }
 }
 

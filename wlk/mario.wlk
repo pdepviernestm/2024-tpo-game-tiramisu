@@ -119,6 +119,13 @@ object mario {
     }}
   }
 
+  method agregarItem(unItem) {
+    items.add(unItem)
+    game.removeVisual(unItem)
+    if(items.size() == 3) peach.libre()
+    else sonidos.iniciarSonido(sonidos.peachFeliz())
+  }
+
   method quitarVida() {
     if(vida > 1) {
       vida -= 1
@@ -145,7 +152,7 @@ object mario {
       imagen = "marioDisparaD.png"
     else
       imagen = "marioDisparaI.png"
-    game.schedule(100, { imagen = imagenOld })
+    game.schedule(250, { imagen = imagenOld })
     const bala = new Bala(numeroBala = pistola.balasDisparadas(), direccion = self.sentidoActual())
     game.addVisual(bala)
     bala.iniciar()

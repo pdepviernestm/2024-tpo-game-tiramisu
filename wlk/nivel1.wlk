@@ -11,6 +11,7 @@ import barril.*
 import items.*
 import direccion.*
 
+
 object nivel1 {
 	const bases = []
 	const escaleras = []
@@ -63,6 +64,7 @@ object nivel1 {
 		game.addVisual(sombrero)
 		game.addVisual(cartera)
 		game.addVisual(pistola)
+		game.addVisual(carcel)
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({menuPausa.actuar()})

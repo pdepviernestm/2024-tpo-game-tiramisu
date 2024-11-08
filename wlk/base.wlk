@@ -1,6 +1,5 @@
 import mario.*
 
-
 class Base {
   const ejeXBase
   const ejeYBase

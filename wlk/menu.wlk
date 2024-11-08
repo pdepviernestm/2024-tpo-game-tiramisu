@@ -41,16 +41,17 @@ class MenuFinal {
   const sonido
   const property image
   const property position = game.origin()
+  const tiempo
   method actuar(){
     menuPausa.actuando(true)
     game.addVisual(self)
     sonidos.iniciarSonido(sonido)
     sonidos.pararMusica()
-    game.schedule(10000, { game.stop() })
+    game.schedule(tiempo, { game.stop() })
   }
 }
-object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere()){}
-object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar()){
+object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 50){}
+object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 1000){
   override method actuar(){
     super()
     game.addVisual(corazonWin)
@@ -69,7 +70,7 @@ object corazonWin {
     image = "corazonPequeno.png"}
   }
 }
-object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click()){
+object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click(), tiempo = 20){
     var property actuando = false
 
     override method actuar() {
