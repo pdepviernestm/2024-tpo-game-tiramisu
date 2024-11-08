@@ -9,7 +9,7 @@ import donkeyKong.*
 import peach.*
 import barril.*
 import items.*
-
+import direccion.*
 
 object nivel1 {
 	const bases = []
@@ -33,7 +33,7 @@ object nivel1 {
 		bases.add(new Base(ejeXBase = 2, ejeYBase = 10, ancho = 18))
 		bases.add(new Base(ejeXBase = 1, ejeYBase = 12, ancho = 5))
 		bases.forEach({ n => n.crearPiso() })
-
+ 
 		//CARGAR: Escaleras//
 		escaleras.add(new Escalera(ejeXBase = 5, ejeYBase = 2, alto = 2))
 		escaleras.add(new Escalera(ejeXBase = 10, ejeYBase = 1, alto = 1))
@@ -46,11 +46,10 @@ object nivel1 {
 		//CARGAR: Vida//
 	    corazones.agregarCorazon()
 
-		const pistola = new Pistola(x = 1,y= 2, image = "arma.png")
-		
-		const paraguas = new Item(x= 3,y= 2, image = "paraguas.png")
-		const sombrero = new Item(x= 5,y= 2, image = "sombrero.png")
-		const cartera = new Item(x =9,y= 2, image = "cartera.png")
+		const pistola = new Pistola(x = 2, y = 5, image = "arma.png")
+		const paraguas = new Item(x = 14, y = 9, image = "paraguas.png")
+		const sombrero = new Item(x = 12, y = 2, image = "sombrero.png")
+		const cartera = new Item(x = 0, y = 8, image = "cartera.png")
 
 
 

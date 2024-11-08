@@ -71,22 +71,24 @@ object corazonWin {
 }
 object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click()){
     var property actuando = false
+
     override method actuar() {
     if(actuando){
       game.removeVisual(self)
       sonidos.despausarMusica()
       actuando = false
-      }
+    }
     else{
       sonidos.pausarMusica()
       game.addVisual(self)
       actuando = true
-      }
     }
-    method comprobacionPara(unaFuncion) { 
-      if(!actuando) unaFuncion.apply()
-      else null
-    }
+  }
+
+  method comprobacionPara(unaFuncion) { 
+    if(!actuando) unaFuncion.apply()
+    else null
+  }
 }
 
 object cursor {

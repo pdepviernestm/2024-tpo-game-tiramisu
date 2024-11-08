@@ -4,6 +4,8 @@ import corazones.*
 import peach.*
 import barril.*
 import items.*
+import direccion.*
+
 import menu.menuPerder
 
 object mario {
@@ -136,14 +138,16 @@ object mario {
     imagen = "marioD.png"
   }
 
-  method disparar(unaPistola) {
+  method disparar(pistola) {
     const imagenOld = imagen
-    if(mirarDer) imagen = "marioDisparaD.png"
-    else imagen = "marioDisparaI.png"
+    pistola.usarBala()
+    if(mirarDer)
+      imagen = "marioDisparaD.png"
+    else
+      imagen = "marioDisparaI.png"
     game.schedule(100, { imagen = imagenOld })
-    const bala = new Bala()
+    const bala = new Bala(numeroBala = pistola.balasDisparadas(), direccion = self.sentidoActual())
     game.addVisual(bala)
-    unaPistola.usarBala()
     bala.iniciar()
   }
 }

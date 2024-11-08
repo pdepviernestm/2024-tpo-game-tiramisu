@@ -4,7 +4,6 @@ class Escalera {
     const ejeXBase
     const ejeYBase
     const alto
-    //const property puedeBajarse
 
     method crearEscalera() {
         (0..alto).forEach({ i =>
@@ -17,6 +16,7 @@ class Escalera {
 class Pixel {
     const ejeXPixel
     const ejeYPixel
+    var property romper = false
     var property colisionable = false 
     var property escalable = true 
 

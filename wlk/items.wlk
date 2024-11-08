@@ -1,40 +1,45 @@
 import menu.*
 import mario.*
 
+
 class Item {
-    const x
-    const y
-    var property position = game.at(x,y)
-    const property image
+  const x
+  const y
+  const property image
+  var property romper = false
+  var property escalable = false
+  var property colisionable = false
+  var property position = game.at(x, y)
 
-    var property colisionable = false
-    var property escalable = false
-
-    method actuar() {
-        mario.items().add(self)
-        //peach hace un sonido
-        game.removeVisual(self)
-    }
+  method actuar() {
+    mario.items().add(self)
+    game.removeVisual(self)
+  }
 }
 
 class Pistola inherits Item {
   var property cantidadBalas = 3
+  var property balasDisparadas = 0
 
   override method actuar() {
     game.removeVisual(self)
     keyboard.t().onPressDo({ if(self.cantidadBalas() > 0 ) mario.disparar(self) })
   }
 
-  method usarBala() { cantidadBalas -= 1 }
+  method usarBala() {
+    cantidadBalas -= 1
+    balasDisparadas += 1
+  }
 }
 
 class Bala {
-  var property colisionable = false
-  var property escalable = false
-
-  var property direccion = mario.sentidoActual()
+  const property numeroBala
+  var property nombreBala = ""
   var property image = "bala.png"
-  var property position = new MutablePosition(x = mario.sentidoActual().desplazar(mario.position()).x(), y = mario.position().y())
+  var property escalable = false
+  var property colisionable = false
+  var property direccion
+  var property position = new MutablePosition(x = direccion.desplazar(mario.position()).x(), y = mario.position().y())
 
   method desplazar() {
     if(!menuPausa.actuando()) {
@@ -43,10 +48,14 @@ class Bala {
     }
   }
 
-  method iniciar() { game.onTick(30, "Avanzar", {
-    self.desplazar() 
-    game.whenCollideDo(self, { elemento => if(!elemento.escalable()) game.removeVisual(elemento) game.schedule(500, {menuPerder.actuar()}) }) })
+  method iniciar() {
+    nombreBala = "Bala".concat(numeroBala.stringValue())
+    game.onTick(30, nombreBala, { self.desplazar() })
+    //game.whenCollideDo(self, { elemento => if(!elemento.escalable()) game.removeVisual(elemento) game.schedule(500, {menuPerder.actuar()}) }) })
   }
 
-  method detener() { game.removeVisual(self) }
+  method detener() {
+    game.removeVisual(self)
+    game.removeTickEvent(nombreBala)
+  }
 }
