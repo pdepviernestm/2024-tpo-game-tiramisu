@@ -9,7 +9,6 @@ import donkeyKong.*
 import peach.*
 import barril.*
 import items.*
-import direccion.*
 
 
 object nivel1 {
@@ -17,7 +16,7 @@ object nivel1 {
 	const escaleras = []
 
 	//TECLAS: Mario//
-    const teclasDer = [keyboard.right(), keyboard.d()]
+  const teclasDer = [keyboard.right(), keyboard.d()]
 	const teclasIzq = [keyboard.left(), keyboard.a()]
 	const teclasSaltar = [keyboard.space()]
 	const teclasEscalarArriba = [keyboard.up(), keyboard.w()]
@@ -47,15 +46,13 @@ object nivel1 {
 		//CARGAR: Vida//
 	    corazones.agregarCorazon()
 
-		const pistola = new Pistola(x = 2, y = 5, image = "arma.png")
 		const paraguas = new Item(x = 14, y = 9, image = "paraguas.png")
-		const sombrero = new Item(x = 12, y = 2, image = "sombrero.png")
 		const cartera = new Item(x = 0, y = 8, image = "cartera.png")
 
 
 
 		//Cargar: Objetos//
-	    game.showAttributes(mario)
+	  game.showAttributes(mario)
 		game.addVisual(peach)
 		game.addVisual(carcel)
 		game.addVisual(donkey)
@@ -63,9 +60,8 @@ object nivel1 {
 		game.addVisual(paraguas)
 		game.addVisual(sombrero)
 		game.addVisual(cartera)
-		game.addVisual(pistola)
 		game.addVisual(objetoInvisible)
-	    game.addVisual(mario)
+	  game.addVisual(mario)
 
 //DEFINIR TECLAS 
         keyboard.p().onPressDo({menuPausa.actuar()})
@@ -74,8 +70,8 @@ object nivel1 {
     	keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
 
 		
-		teclasDer.forEach { n => n.onPressDo({menuPausa.comprobacionPara({ mario.caminar(derecha) })})}
-		teclasIzq.forEach { n => n.onPressDo({menuPausa.comprobacionPara({ mario.caminar(izquierda) })})}
+		teclasDer.forEach { n => n.onPressDo({menuPausa.comprobacionPara({ mario.caminar(0) })})}
+		teclasIzq.forEach { n => n.onPressDo({menuPausa.comprobacionPara({ mario.caminar(1) })})}
 
 	    teclasSaltar.forEach { n => n.onPressDo({ menuPausa.comprobacionPara({mario.saltar()}) })}
 
@@ -90,13 +86,11 @@ object nivel1 {
 	   
 	    game.onTick(300, "Se cae", { menuPausa.comprobacionPara({ mario.caer() })})
 
-    	game.onTick(10000, "Comentarios", { menuPausa.comprobacionPara({ sonidos.iniciarListaSonido(sonidos.marioHabla()) })})
+    game.onTick(10000, "Comentarios", { menuPausa.comprobacionPara({ sonidos.iniciarListaSonido(sonidos.marioHabla()) })})
 
-		game.onTick(1000, "Donkey Kong lanza Barriles", {menuPausa.comprobacionPara({donkey.lanzarBarril()})})
+		game.onTick(7000, "Donkey Kong lanza Barriles", {menuPausa.comprobacionPara({donkey.lanzarBarril()})})
 		
 		game.onTick(500, "Peach se mueve", {menuPausa.comprobacionPara({peach.moverse()})})
-
-		//game.onTick(1000, "Barrilazo", {})
 		
 
 //COLISIONES (TODOS LOS OBJETOS COLISIONABLES DEBEN TENER EL METHOD ACTUAR)

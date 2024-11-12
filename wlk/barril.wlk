@@ -1,7 +1,7 @@
 import base.*
 import escalera.*
 import mario.*
-import direccion.*
+
 import menu.menuPausa
 
 object barriles {
@@ -71,4 +71,24 @@ class Barril {
     mario.quitarVida()
     self.detener()
   }
+}
+
+class Direccion {
+  method desplazar(position)
+}
+
+object izquierda inherits Direccion {
+  override method desplazar(position) = position.left(1)
+
+  method invertir() = derecha
+}
+
+object derecha inherits Direccion {
+  override method desplazar(position) = position.right(1)
+
+  method invertir() = izquierda
+}
+
+object abajo inherits Direccion {
+  override method desplazar(position) = position.down(1)
 }

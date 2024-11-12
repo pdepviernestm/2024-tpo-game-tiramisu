@@ -4,7 +4,6 @@ import corazones.*
 import peach.*
 import barril.*
 import items.*
-import direccion.*
 
 import menu.menuPerder
 
@@ -16,11 +15,8 @@ object mario {
   var property mirarDer = true
   var property vida = 3
   var property puedeCaer = true
-  var property sentidoActual = derecha
-
   var property escalable = false
   var property colisionable = false
-  
   var imagen = "marioD.png"
   const property items = []
 
@@ -28,22 +24,23 @@ object mario {
 
   method detener() {}
 
-  method caminar(sentido) {
+  method caminar(donde) {
+    var voy
     var imagen1
     var imagen2
-    if(sentido.desplazar(position) == derecha.desplazar(position)) {
+    if(donde == 0) {
       imagen1 = "marioD.png"
       imagen2 = "marioDD.png"
-      sentidoActual = izquierda.invertir()
-      mirarDer = true
+      voy = self.position().right(1)
+      self.mirarDer(true)
     }
     else {
       imagen1 = "marioI.png"
       imagen2 = "marioII.png"
-      sentidoActual = derecha.invertir()
-      mirarDer=false
+      voy = self.position().left(1)
+      self.mirarDer(false)
     }
-    if(self.dentroDePantalla(sentido.desplazar(position))) {
+    if(self.dentroDePantalla(voy)) {
       if(andar) {
         imagen = imagen1
         andar = false
@@ -53,7 +50,7 @@ object mario {
         game.schedule(500, { imagen = imagen1 andar = false })
         andar = true
       }
-      position = sentido.desplazar(position)
+      self.position(voy)
       sonidos.iniciarListaSonido(sonidos.marioCamina())
     }
   }
@@ -62,32 +59,24 @@ object mario {
     and (pos.y() > -1) and (pos.y() < game.height()))
 
   method saltar() {
-    if (not(saltando)) {
+    if(not(saltando)) {
       var imagenOld
       sonidos.iniciarListaSonido(sonidos.marioSalta())
-      self.saltando(true) 
+      self.saltando(true)
       andar = false
-
-      if(mirarDer) {
-        imagen= "marioUpD.png"
-        imagenOld = "marioD.png"
-        } 
-    
-      else{ 
-        imagen= "marioUpI.png"
-        imagenOld = "marioI.png"
-      }
-    self.position(self.position().up(1))
-    game.schedule(300, {
-      if(not(self.enBase()))self.position(self.position().down(1)) 
-      game.schedule(20,  {imagen = imagenOld}) 
-    self.saltando(false)
-    })
+      if(mirarDer) { imagen= "marioUpD.png" imagenOld = "marioD.png" }
+      else { imagen= "marioUpI.png" imagenOld = "marioI.png" }
+      self.position(self.position().up(1))
+      game.schedule(500, {
+      if(not(self.enBase())) self.position(self.position().down(1)) 
+        game.schedule(20,  { imagen = imagenOld })
+        self.saltando(false)
+      })
     }
   }
 
   method escalar(donde) {
-    if(self.puedoEscalar(donde) and not(saltando) ){
+    if(self.puedoEscalar(donde) and not(saltando)) {
       self.position(self.position().up(donde))
       if(mirarDer){ imagen = "marioEscala1D.png" 
       mirarDer=false
@@ -100,10 +89,7 @@ object mario {
   }
 
   method puedoEscalar(donde) {
-    if(donde == 1)
-      return self.sobreEscalera(position)
-    else
-      return self.sobreEscalera(position.down(1))
+    return if(donde == 1) self.sobreEscalera(position) else self.sobreEscalera(position.down(1))
   }
 
   method sobreEscalera(pos) = game.getObjectsIn(pos).any({ n => n.escalable()})
@@ -152,13 +138,9 @@ object mario {
   method disparar(pistola) {
     const imagenOld = imagen
     pistola.usarBala()
-    if(mirarDer)
-      imagen = "marioDisparaD.png"
-    else
-      imagen = "marioDisparaI.png"
+    if(mirarDer) imagen = "marioDisparaD.png" else imagen = "marioDisparaI.png"
     game.schedule(250, { imagen = imagenOld })
-    const bala = new Bala(numeroBala = pistola.cantidadBalas(), direccion = self.sentidoActual())
-    game.addVisual(bala)
+    const bala = new Bala(numeroBala = pistola.cantidadBalas(), direccion = self.mirarDer())
     bala.iniciar()
   }
 }

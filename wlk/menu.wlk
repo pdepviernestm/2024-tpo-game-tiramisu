@@ -23,10 +23,8 @@ class Menu {
 object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonComoJugar, botonSalir], mousePosition = 5){
   method inicioPrincipal(){
     self.iniciar()
-
     sonidos.iniciarSonido(sonidos.nombreGame())
     sonidos.iniciarMusica(sonidos.musicaMenu())
-
     keyboard.i().onPressDo { sonidos.cambiarVolumen(0.05) }
     keyboard.k().onPressDo { sonidos.cambiarVolumen(-0.05) }
     keyboard.up().onPressDo({ cursor.desplazar(-1) })
@@ -34,7 +32,6 @@ object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [boton
     keyboard.enter().onPressDo({ cursor.seleccionar() })
   }
 }
-
 
 const menuControles = new Menu (image = "controlesMenu.jpg", botones = [botonVolver], mousePosition = 3)
 
@@ -55,9 +52,9 @@ class MenuFinal {
   }
 }
 
-object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 500){}
+object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 500) {}
 
-object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 10000){
+object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 10000) {
   override method actuar() {
     super()
     game.addVisual(corazonWin)
@@ -69,33 +66,36 @@ object corazonWin {
   var property image = "corazonPequeno.png"
   var property position = game.at(7, 7)
   var index = 0
+
   method cambiarImagen() {
-    if(index < 1) {index += 1 
-    image = "corazonGrande.png"
+    if(index < 1) {
+      index += 1 
+      image = "corazonGrande.png"
     }
-    else{ index = 0
-    image = "corazonPequeno.png"}
+    else {
+      index = 0
+      image = "corazonPequeno.png"
+    }
   }
 }
-object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click(), tiempo = 20){
-    var property actuando = false
 
-    override method actuar() {
-    if(actuando){
+object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.click(), tiempo = 20) {
+  var property actuando = false
+
+  override method actuar() {
+    if(actuando) {
       game.removeVisual(self)
       sonidos.despausarMusica()
       actuando = false
     }
-    else{
+    else {
       sonidos.pausarMusica()
       game.addVisual(self)
       actuando = true
     }
   }
 
-  method comprobacionPara(unaFuncion) { 
-    if(!actuando) unaFuncion.apply()
-  }
+  method comprobacionPara(unaFuncion) { if(!actuando) unaFuncion.apply() }
 }
 
 object cursor {
@@ -177,4 +177,3 @@ object botonVolver inherits Boton(imagen = "botonAtras.png", ejeX = 10.5, ejeY =
     menuPrincipal.iniciar()
   }
 }
-
