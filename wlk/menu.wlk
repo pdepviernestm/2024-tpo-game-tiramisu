@@ -154,7 +154,7 @@ object botonControles inherits Boton(imagen="botonControles.png", ejeX = 1.5, ej
   }
 }
 
-object botonComoJugar inherits Boton(imagen = "botonControles.png", ejeX = 1.5, ejeY = 3) {
+object botonComoJugar inherits Boton(imagen = "botonComoJugar.png", ejeX = 1.5, ejeY = 3) {
   override method actuar() {
     menuPrincipal.cerrar()
     menuComoJugar.iniciar()

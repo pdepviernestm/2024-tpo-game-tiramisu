@@ -16,6 +16,7 @@ object mario {
   var property vida = 3
   var property puedeCaer = true
   var property escalable = false
+  var escalando = false
   var property colisionable = false
   var imagen = "marioD.png"
   const property items = []
@@ -40,7 +41,7 @@ object mario {
       voy = self.position().left(1)
       self.mirarDer(false)
     }
-    if(self.dentroDePantalla(voy)) {
+    if(self.dentroDePantalla(voy) and !self.escalando()) {
       if(andar) {
         imagen = imagen1
         andar = false
@@ -78,6 +79,7 @@ object mario {
   method escalar(donde) {
     if(self.puedoEscalar(donde) and not(saltando)) {
       self.position(self.position().up(donde))
+      escalando = true
       if(mirarDer){ imagen = "marioEscala1D.png" 
       mirarDer=false
       }
@@ -86,14 +88,24 @@ object mario {
         mirarDer=true
       }
     }
+    else if(escalando) {
+      escalando = false
+      if(mirarDer) imagen = "marioD.png" else imagen = "marioI.png"
+    }
   }
+
+  method escalando() = !self.enBase() and escalando
 
   method puedoEscalar(donde) {
-    return if(donde == 1) self.sobreEscalera(position) else self.sobreEscalera(position.down(1))
+      return if(donde == 1) {
+      self.sobreEscalera(position)
+      } 
+      else self.sobreEscalera(position.down(1))
   }
 
-  method sobreEscalera(pos) = game.getObjectsIn(pos).any({ n => n.escalable()})
-
+  method sobreEscalera(pos) {
+    return game.getObjectsIn(pos).any({ n => n.escalable()})
+  }
   method enBase() {
     const bloqueDeAbajo = self.position().down(1)
     return game.getObjectsIn(bloqueDeAbajo).any({ n => n.colisionable()})
