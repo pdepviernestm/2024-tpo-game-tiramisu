@@ -18,6 +18,7 @@ class Item {
   method detener() {
     game.removeVisual(self)
     game.removeTickEvent(self)
+    game.schedule(1000, {menuPerder.actuar()})
   }
 }
 
