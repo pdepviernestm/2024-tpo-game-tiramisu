@@ -49,11 +49,10 @@ object sonidos {
     sound.volume(volumen)
     sound.play()
   }
+}
 
-  method iniciarListaSonido(lista) {
-    const sound = game.sound(lista.anyOne())
-    sound.volume(volumen)
-    sound.play()
+class ListaSonido{
+  method sound (listaSonidos){
+    game.sound(listaSonidos.anyOne())
   }
-
 }
