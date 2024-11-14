@@ -1,12 +1,9 @@
 import wollok.game.*
-import base.*
 import mario.*
-import escalera.*
-import corazones.*
+import escaleraBase.*
 import sonidos.*
 import menu.*
-import donkeyKong.*
-import peach.*
+import personajes.*
 import barril.*
 import items.*
 

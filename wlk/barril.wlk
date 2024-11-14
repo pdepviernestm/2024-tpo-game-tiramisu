@@ -1,7 +1,6 @@
-import base.*
-import escalera.*
-import mario.*
 
+import escaleraBase.*
+import mario.*
 import menu.menuPausa
 
 object barriles {
@@ -39,8 +38,7 @@ class Barril {
     if(position.y() < -1)self.detener()
     else if(objetosDeAbajo.isEmpty()) { 
       position = abajo.desplazar(position)
-      image = "barril0.png" self.cayo(true) 
-      }
+      image = "barril0.png" self.cayo(true) }
     else  {
       if(objetosDeAbajo.contains(mario)) { 
         position = abajo.desplazar(position) 
@@ -53,8 +51,7 @@ class Barril {
             direccionActual = direccionActual.invertir() 
             position = direccionActual.desplazar(position) }
           else position = direccionActual.desplazar(position)
-          self.cambiarImagen()
-        }
+          self.cambiarImagen()}
         else { 
           image = "barril0.png" 
           position = abajo.desplazar(position) 

@@ -1,7 +1,5 @@
-import base.*
 import sonidos.*
-import corazones.*
-import peach.*
+import personajes.*
 import barril.*
 import items.*
 
