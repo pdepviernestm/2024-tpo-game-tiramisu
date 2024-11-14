@@ -9,8 +9,11 @@
 - Nicolas Scatolon
 
 ## Capturas
+![menu](https://github.com/user-attachments/assets/a26a3acb-b90c-40b0-81e0-6d90c1025d5d)
+![marioSaltando](https://github.com/user-attachments/assets/2bef5fee-cb1d-437b-8703-adc83527211e)
+![marioGano](https://github.com/user-attachments/assets/071cbfe2-6e61-477c-8f62-40525b7fc9cc)
 
-![Pantalla Inicio](/assets/menuPrincipal.jpg "Menu Principal")
+
 
 ## Reglas de Juego / Instrucciones
 
