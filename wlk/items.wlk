@@ -75,13 +75,6 @@ class Bala {
     game.whenCollideDo(self, { elemento => elemento.detener() self.detener()})
   }
 
-method proxElemento() {
-    return if(direccion)
-        game.getObjectsIn(position.right(1))
-    else
-        game.getObjectsIn(position.left(1))
-}
-
 method iniciar() {
     game.addVisual(self)
     nombreBala = "Bala".concat(numeroBala.stringValue())
