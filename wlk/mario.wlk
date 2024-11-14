@@ -136,6 +136,8 @@ object mario {
       self.reaparecer()
       }
     else {
+      sonidos.iniciarSonido(sonidos.marioPierdeVida())
+      corazones.quitarCorazon()
       if (mirarDer) imagen = "marioDeadD.png"
         else imagen = "marioDeadI.png"
         menuPerder.actuar()
