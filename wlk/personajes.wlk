@@ -36,6 +36,8 @@ object peach {
     liberable = true
   }
 }
+
+//CARCEL
 object carcel {
   var property position = game.at(1, 13)
   var imagen = "celdaCerrada.png"
@@ -56,7 +58,6 @@ object objetoInvisible {
     peach.actuar()
   }
 }
-
 
 //MONO DONKEY
 object donkey {

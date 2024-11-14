@@ -1,7 +1,7 @@
 import nivel1.*
 import sonidos.*
 
-
+//MENU GENERAL
 class Menu {
   var property image
   var property botones
@@ -20,6 +20,8 @@ class Menu {
   }
 }
 
+
+//MENU PRINCIPAL
 object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [botonJugar, botonControles, botonComoJugar, botonSalir], mousePosition = 5){
   method inicioPrincipal(){
     self.iniciar()
@@ -33,10 +35,12 @@ object menuPrincipal inherits Menu(image = "menuPrincipal.jpg", botones = [boton
   }
 }
 
+//MENU CONTROLES Y CÓMO JUGAR
 const menuControles = new Menu (image = "controlesMenu.jpg", botones = [botonVolver], mousePosition = 3)
 
 const menuComoJugar = new Menu (image = "comoJugar.jpg", botones = [botonVolver], mousePosition = 3)
 
+//MENU SALIR
 class MenuFinal {
   const sonido
   const property image
@@ -52,6 +56,7 @@ class MenuFinal {
   }
 }
 
+//MENU PERDER, GANAR Y PAUSA
 object menuPerder inherits MenuFinal (image = "menuPerder.png", sonido = sonidos.marioMuere(), tiempo = 500) {}
 
 object menuGanar inherits MenuFinal (image = "menuGanar.png", sonido = sonidos.ganar(), tiempo = 10000) {
@@ -98,6 +103,8 @@ object menuPausa inherits MenuFinal (image = "menuPausa.png", sonido = sonidos.c
   method comprobacionPara(unaFuncion) { if(!actuando) unaFuncion.apply() }
 }
 
+
+//CURSOR
 object cursor {
   var indice = 0
   var botonesActuales = menuPrincipal.botones()
@@ -128,6 +135,7 @@ object cursor {
   }
 }
 
+//BOTONES MENÚ
 class Boton {
   const ejeX
   const ejeY

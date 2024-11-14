@@ -1,8 +1,8 @@
 
-import escaleraBase.*
+import elementosModificables.*
 import mario.*
 import menu.menuPausa
-
+//BARRILES EN PILA
 object barriles {
   var property position = game.at(14, 11)
 
@@ -76,6 +76,7 @@ class Barril {
   }
 }
 
+//DIRECCIONES
 class Direccion {
   method desplazar(position)
 }

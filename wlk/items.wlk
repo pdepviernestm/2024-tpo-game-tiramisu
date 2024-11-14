@@ -2,6 +2,7 @@ import menu.*
 import mario.*
 import sonidos.*
 
+//ITEM PREDETERMINADO
 class Item {
   const x
   const y
@@ -21,6 +22,7 @@ class Item {
   }
 }
 
+//ITEM SOMBRERO
 object sombrero inherits Item(x = 12, y = 2, image = "sombrero.png") {
 	override method actuar() {
     super()
@@ -29,6 +31,7 @@ object sombrero inherits Item(x = 12, y = 2, image = "sombrero.png") {
 	}
 }
 
+//ITEM PISTOLA
 object pistola inherits Item(x = 2, y = 5, image = "aparicion0.png") {
   var indice = 0
   var property cantidadBalas = 5
@@ -48,6 +51,7 @@ object pistola inherits Item(x = 2, y = 5, image = "aparicion0.png") {
   }
 }
 
+//UNA BALA
 class Bala {
   const property numeroBala
   var property nombreBala = ""
@@ -85,45 +89,4 @@ method iniciar() {
     game.removeVisual(self)
     game.removeTickEvent(nombreBala)
   }
-}
-
-//CORAZONES
-object corazones { 
-    const x = 11
-    const y = 14
-    const cant = 3
-    const corazones = []
-    
-    method agregarCorazon() {
-        (1..cant).forEach({ i =>
-            const corazon = new Corazon(ejeXPixel = x + i, ejeYPixel = y)
-            corazones.add(corazon) 
-            game.addVisual(corazon)
-        })
-    }
-    
-    method quitarCorazon() { 
-        const corazon = corazones.last()
-        corazon.quitarCorazon()
-        corazones.remove(corazon)
-    }
-}
-
-class Corazon {
-    const ejeXPixel
-    const ejeYPixel
-    var imagen = "marioVida.png"
-
-    var property colisionable = false 
-    var property escalable = false 
-
-    method position() = game.at(ejeXPixel, ejeYPixel)
-
-    method image() = imagen
-
-    method quitarCorazon() {
-        imagen = "marioVidaDead.png"
-    }
-
-    method actuar() {}
 }

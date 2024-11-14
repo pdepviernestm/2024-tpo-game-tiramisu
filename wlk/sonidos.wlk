@@ -1,4 +1,5 @@
 object sonidos {
+  //DEFINICIÓN DE SONIDOS
   const property musicaNivel1 = "theme1.mp3"
   const property musicaMenu = "themeMenu.mp3"
   const property nombreGame = "mario_gametitle.wav"
@@ -48,6 +49,7 @@ object sonidos {
   }
 }
 
+//LISTAS DE SONIDOS
 object listaSonidos{
   const property marioCamina = ["marioWalk1.wav", "marioWalk2.wav", "marioWalk3.wav", "marioWalk4.wav", "marioWalk5.wav", "marioWalk6.wav"]
   const property marioHabla =  ["marioComentario8.wav", "marioComentario7.wav", "marioComentario6.wav", "marioComentario5.wav", "marioComentario4.wav", "marioComentario3.wav", "marioComentario2.wav", "marioComentario1.wav"]

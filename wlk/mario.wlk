@@ -2,7 +2,7 @@ import sonidos.*
 import personajes.*
 import barril.*
 import items.*
-
+import elementosModificables.*
 import menu.menuPerder
 
 object mario {
