@@ -23,7 +23,8 @@ object mario {
 
   method image() = imagen
 
-  method detener() {}
+  method detener() {
+  }
 
   method caminar(donde) {
     var voy
@@ -52,7 +53,7 @@ object mario {
         andar = true
       }
       self.position(voy)
-      sonidos.iniciarListaSonido(sonidos.marioCamina())
+      listaSonidos.iniciarSonido(listaSonidos.marioCamina())
     }
   }
 
@@ -62,7 +63,7 @@ object mario {
   method saltar() {
     if(not(saltando)) {
       var imagenOld
-      sonidos.iniciarListaSonido(sonidos.marioSalta())
+      listaSonidos.iniciarSonido(listaSonidos.marioSalta())
       self.saltando(true)
       andar = false
       if(mirarDer) { imagen= "marioUpD.png" imagenOld = "marioD.png" }
@@ -136,8 +137,6 @@ object mario {
       self.reaparecer()
       }
     else {
-      sonidos.iniciarSonido(sonidos.marioPierdeVida())
-      corazones.quitarCorazon()
       if (mirarDer) imagen = "marioDeadD.png"
         else imagen = "marioDeadI.png"
         menuPerder.actuar()

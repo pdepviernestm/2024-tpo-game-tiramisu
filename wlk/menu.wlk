@@ -166,7 +166,7 @@ object botonSalir inherits Boton(imagen = "botonSalir.png", ejeX = 1.5, ejeY = 2
     sonidos.pararMusica()
     menuPrincipal.cerrar()
     game.addVisual(menuPrincipal)
-    sonidos.iniciarSonido(sonidos.marioHabla().get(2))
+    sonidos.iniciarSonido(listaSonidos.marioHabla().get(2))
     game.schedule(500, { game.stop() })
   }
 }

@@ -11,9 +11,6 @@ object sonidos {
   const property peachLibre = "peachSound.mp3"
   const property peachFeliz = "peachFeliz.mp3"
   const property iniciarNivel = "iniciarNivel.wav"
-  const property marioCamina = ["marioWalk1.wav", "marioWalk2.wav", "marioWalk3.wav", "marioWalk4.wav", "marioWalk5.wav", "marioWalk6.wav"]
-  const property marioHabla = ["marioComentario8.wav", "marioComentario7.wav", "marioComentario6.wav", "marioComentario5.wav", "marioComentario4.wav", "marioComentario3.wav", "marioComentario2.wav", "marioComentario1.wav"]
-  const property marioSalta = ["mario_jump1.wav", "mario_jump2.wav", "mario_jump3.wav", "mario_jump4.wav"]
 
   var musicaActual = null
 
@@ -51,8 +48,13 @@ object sonidos {
   }
 }
 
-class ListaSonido{
-  method sound (listaSonidos){
-    game.sound(listaSonidos.anyOne())
+object listaSonidos{
+  const property marioCamina = ["marioWalk1.wav", "marioWalk2.wav", "marioWalk3.wav", "marioWalk4.wav", "marioWalk5.wav", "marioWalk6.wav"]
+  const property marioHabla =  ["marioComentario8.wav", "marioComentario7.wav", "marioComentario6.wav", "marioComentario5.wav", "marioComentario4.wav", "marioComentario3.wav", "marioComentario2.wav", "marioComentario1.wav"]
+  const property marioSalta =  ["mario_jump1.wav", "mario_jump2.wav", "mario_jump3.wav", "mario_jump4.wav"]
+
+  method iniciarSonido (lista){
+    const sound = lista.anyOne()
+    sonidos.iniciarSonido(sound)
   }
 }

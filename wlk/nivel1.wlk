@@ -86,9 +86,9 @@ object nivel1 {
 	   
 	    game.onTick(300, "Se cae", { menuPausa.comprobacionPara({ mario.caer() })})
 
-    game.onTick(10000, "Comentarios", { menuPausa.comprobacionPara({ sonidos.iniciarListaSonido(sonidos.marioHabla()) })})
+    	game.onTick(10000, "Comentarios", { menuPausa.comprobacionPara({listaSonidos.iniciarSonido(listaSonidos.marioHabla()) })})
 
-		game.onTick(7000, "Donkey Kong lanza Barriles", {menuPausa.comprobacionPara({donkey.lanzarBarril()})})
+		game.onTick(3000, "Donkey Kong lanza Barriles", {menuPausa.comprobacionPara({donkey.lanzarBarril()})})
 		
 		game.onTick(500, "Peach se mueve", {menuPausa.comprobacionPara({peach.moverse()})})
 		

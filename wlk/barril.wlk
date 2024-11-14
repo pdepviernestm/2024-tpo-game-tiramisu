@@ -13,7 +13,7 @@ object barriles {
 }
 
 class Barril {
-  var property colisionable = false
+  var property colisionable = true
   var indice = 0
   var cayo = false
   const property numeroBarril
@@ -35,24 +35,30 @@ class Barril {
   }
 
   method mover() {
-    if(!menuPausa.actuando()) {
-      const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
-      if(position.y() < -1)
-        self.detener()
-      if(objetosDeAbajo.isEmpty()) { position = abajo.desplazar(position) image = "barril0.png" self.cayo(true) }
-      else
-      {
-        if(objetosDeAbajo.contains(mario)) { position = abajo.desplazar(position) self.cayo(true) }
-        else
-        {
-          const select = objetosDeAbajo.anyOne()
-          if(select.colisionable()) {
-            if(cayo) { self.cayo(false) direccionActual = direccionActual.invertir() position = direccionActual.desplazar(position) }
-            else position = direccionActual.desplazar(position)
-            self.cambiarImagen()
-          }
-          else { image = "barril0.png" position = abajo.desplazar(position) self.cayo(true) }
+    const objetosDeAbajo = game.getObjectsIn(abajo.desplazar(position))
+    if(position.y() < -1)self.detener()
+    else if(objetosDeAbajo.isEmpty()) { 
+      position = abajo.desplazar(position)
+      image = "barril0.png" self.cayo(true) 
+      }
+    else  {
+      if(objetosDeAbajo.contains(mario)) { 
+        position = abajo.desplazar(position) 
+        self.cayo(true) }
+      else{
+        const select = objetosDeAbajo.anyOne()
+        if(select.colisionable()) {
+          if(cayo) { 
+            self.cayo(false) 
+            direccionActual = direccionActual.invertir() 
+            position = direccionActual.desplazar(position) }
+          else position = direccionActual.desplazar(position)
+          self.cambiarImagen()
         }
+        else { 
+          image = "barril0.png" 
+          position = abajo.desplazar(position) 
+          self.cayo(true) }
       }
     }
   }
@@ -64,7 +70,7 @@ class Barril {
 
   method iniciar() {
     nombreBarril = "Barril".concat(numeroBarril.stringValue())
-    game.onTick(60, nombreBarril, { self.mover() })
+    game.onTick(180, nombreBarril, { menuPausa.comprobacionPara({ self.mover() }) })
   }
 
   method actuar() { 

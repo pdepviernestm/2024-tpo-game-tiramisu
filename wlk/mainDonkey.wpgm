@@ -13,10 +13,3 @@ program DonkeyKongGame {
 
 	game.start()
 }
-
-
-
-// NACHO HACE POLIMORFICO EL ARCHIVO DE SONIDOS FACILITO
-
-//OPCIONALES
-// items con posiciones random sobre base, (el paraguas puede o no estar en el aire)

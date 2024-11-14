@@ -26,3 +26,4 @@ class Pixel {
   method actuar() {}
   method detener() {}
 }
+

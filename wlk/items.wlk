@@ -60,25 +60,36 @@ class Bala {
 
   method image() = imagen
 
-  method desplazar() {
-    if(!menuPausa.actuando()) {
-      if(position.y() < -1) self.detener()
-      else  
-      {
-        if(direccion) { self.position(self.position().right(1)) }
-        else { self.position(self.position().left(1)) }
-      }
-    }
+  method actuar() {
+    self.detener()
+
   }
 
-  method iniciar() {
+  method desplazar() {
+    if(position.y() < -1) self.detener()
+    else  
+    {
+      if(direccion) { self.position(self.position().right(1)) }
+      else { self.position(self.position().left(1)) }
+    }
+    game.whenCollideDo(self, { elemento => elemento.detener() self.detener()})
+  }
+
+method proxElemento() {
+    return if(direccion)
+        game.getObjectsIn(position.right(1))
+    else
+        game.getObjectsIn(position.left(1))
+}
+
+method iniciar() {
     game.addVisual(self)
     nombreBala = "Bala".concat(numeroBala.stringValue())
-    game.onTick(20, nombreBala, { self.desplazar() })
-    game.whenCollideDo(self, { elemento => elemento.detener() })
-  }
-  
+    game.onTick(80, nombreBala, { menuPausa.comprobacionPara({self.desplazar()}) })
+}
+
   method detener() {
+    position = game.at(-1, -1)
     game.removeVisual(self)
     game.removeTickEvent(nombreBala)
   }
